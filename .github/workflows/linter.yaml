@@ -1,0 +1,22 @@
+name: linter
+on:
+  [push, pull_request]
+jobs:
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - run: pip install flake8
+
+      - name: Run linter
+        uses: suo/flake8-github-action@releases/v1
+        with:
+          checkName: 'flake8'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
