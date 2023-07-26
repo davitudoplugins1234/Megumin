@@ -343,7 +343,7 @@ async def media_config(client: megux, callback: CallbackQuery):
         await tld(chat.id, "MEDIAS_CONFIG_TEXT"), reply_markup=ikb(keyboard)
     )
 
-@megux.on_callback_query(filters.regex(r"^config"))
+@megux.on_callback_query(filters.regex(r"config"))
 @megux.on_message(filters.command("config"))
 async def config(client: megux, union: Message | CallbackQuery):
     reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
