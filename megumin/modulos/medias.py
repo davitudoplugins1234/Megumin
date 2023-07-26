@@ -311,7 +311,7 @@ async def media_config(client: megux, callback: CallbackQuery):
                 await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60
             )
 
-    state = ["☑️", "✅"]
+    state = ["❎", "✅"]
     
     if "+" in callback.data and not (await cisdl(chat.id)):
         await tisdl(chat.id, True)
