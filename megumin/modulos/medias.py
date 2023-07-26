@@ -301,34 +301,6 @@ async def sdl(c: megux, message: Message):
         return None
     return None
 
-@megux.on_callback_query(filters.regex(r"config"))
-@megux.on_message(filters.command("config"))
-async def config(client: megux, union: Message | CallbackQuery):
-    reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
-    chat = union.message.chat if isinstance(union, CallbackQuery) else union.chat
-
-    if chat.type != ChatType.PRIVATE:
-        if not await check_rights(chat.id, union.from_user.id, "can_change_info"):
-            if isinstance(union, CallbackQuery):
-                await union.answer(await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
-            else:
-                message = await reply(await tld(chat.id, "NO_CHANGEINFO_PERM"))
-                await asyncio.sleep(5.0)
-                await message.delete()
-            return
-
-    keyboard = [
-        [
-            (await tld(chat.id, "MEDIAS_BNT"), "media_config"),
-        ],
-        [
-            (await tld(chat.id, "button_lang"), "lang_menu"),
-        ],
-    ]
-
-    await reply(await tld(chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard))
-
-
 
 @megux.on_callback_query(filters.regex(r"^media_config"))
 async def media_config(client: megux, callback: CallbackQuery):
@@ -370,3 +342,31 @@ async def media_config(client: megux, callback: CallbackQuery):
     return await callback.edit_message_text(
         await tld(chat.id, "MEDIAS_CONFIG_TEXT"), reply_markup=ikb(keyboard)
     )
+
+@megux.on_callback_query(filters.regex(r"^config"))
+@megux.on_message(filters.command("config"))
+async def config(client: megux, union: Message | CallbackQuery):
+    reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
+    chat = union.message.chat if isinstance(union, CallbackQuery) else union.chat
+
+    if chat.type != ChatType.PRIVATE:
+        if not await check_rights(chat.id, union.from_user.id, "can_change_info"):
+            if isinstance(union, CallbackQuery):
+                await union.answer(await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
+            else:
+                message = await reply(await tld(chat.id, "NO_CHANGEINFO_PERM"))
+                await asyncio.sleep(5.0)
+                await message.delete()
+            return
+
+    keyboard = [
+        [
+            (await tld(chat.id, "MEDIAS_BNT"), "media_config"),
+        ],
+        [
+            (await tld(chat.id, "button_lang"), "lang_menu"),
+        ],
+    ]
+
+    await reply(await tld(chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard))
+
