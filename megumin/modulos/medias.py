@@ -324,7 +324,7 @@ async def config(client: Smudge, union: Message | CallbackQuery):
         ],
     ]
 
-    await reply(await tld(union.chat.id, "CONFIG_TEXT")", reply_markup=ikb(keyboard))
+    await reply(await tld(union.chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard))
 
 
 
