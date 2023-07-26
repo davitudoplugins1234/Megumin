@@ -19,7 +19,7 @@ HELP_BNT: "❔ Ajuda"
 REPO_BNT: "📦 Código Fonte"
 ADD_BNT: "✨ Me adicione a um chat"
 SUP_BNT: "Suporte"
-CONFIG_TEXT: "<b>⚙ Configurações</b> — Aqui estão as configurações para esse grupo. Para saber mais, <b>clique nos botões abaixo.</b>"
+CONFIG_TEXT: "<b>⚙ Configurações</b> — Aqui estão as configurações para esse chat. Para saber mais, <b>clique nos botões abaixo.</b>"
 MOREINFO_BNT: "🔧 Mais Informações..."
 HELP_STICKERS: "Aqui está a ajuda para o módulo <b>Stickers</b>:\n\n• /stickerid: responda a um adesivo para eu lhe dizer seu ID de arquivo.\n• /getsticker: responda a um adesivo para fazer o upload do arquivo PNG bruto.\n• /kang: responda a um sticker para adicioná-lo ao seu pacote."
 HELP_DISABLE: "Aqui está a ajuda para o módulo <b>Desativar</b>:\n\nNem todo mundo quer todos os recursos que o bot oferece. Alguns comandos são melhores quando não utilizados para evitar spam e abuso.\n\nIsso permite que você desative alguns comandos.\n\n• /disableable Veja quais comandos podem ser desativados.\n\n<b>Apenas administrador</b>:\n\n• /enable : habilita um comando.\n• /disable : Desativa um comando."
@@ -81,6 +81,8 @@ YTDL_CAPTION: "<a href={}><b>{}</b></a>\n<b>❯ Duração:</b> {}\n<b>❯ Views:
 MEDIAS_BNT: "Mídias"
 MEDIAS_CAPTION_BNT: "📃 Legendas:"
 AUTO_DOWNLOAD_BNT: "⬇️ Automatico:"
+MEDIAS_CONFIG_TEXT: "<b>⚙ Medias</b> — Aqui estão as configurações de <b>'Medias'</b> para esse chat. Para saber mais, <b>Clique nos botões abaixo para saber para o que serve.</b>"
+
 
 #reverse
 REVERSE_RESULTS: "<b>Resultados da pesquisa:</b> "
