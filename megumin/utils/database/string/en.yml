@@ -80,6 +80,7 @@ YTDL_CAPTION: "<a href={}><b>{}</b></a>\n<b>❯ Duration:</b> {}\n<b>❯ Views:<
 MEDIAS_BNT: "Media"
 MEDIAS_CAPTION_BNT: "📃 Captions:"
 AUTO_DOWNLOAD_BNT: "⬇️ Automatic:"
+MEDIAS_CONFIG_TEXT: "<b>⚙ Medias</b> — Here are the <b>'Medias'</b> settings for this chat. To learn more, <b>Click the buttons below to find out what it's for.</b>"
 
 
 #reverse
