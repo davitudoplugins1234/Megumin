@@ -321,7 +321,7 @@ async def media_config(client: megux, callback: CallbackQuery):
     keyboard = [
         [
             (await tld(chat.id, "MEDIAS_CAPTION_BNT"), "media_config"),
-            (state[(await csdl(chat.id))], "media_config+"),
+            (state[(await cisdl(chat.id))], "media_config+"),
         ],
     ]
 
