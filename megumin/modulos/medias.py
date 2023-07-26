@@ -307,21 +307,22 @@ async def config(client: megux, union: Message | CallbackQuery):
     reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
     chat = union.message.chat if isinstance(union, CallbackQuery) else union.chat
 
-    if not await check_rights(chat.id, union.from_user.id, "can_change_info"):
-        if isinstance(union, CallbackQuery):
-            await union.answer(await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
-        else:
-            message = await reply(await tld(chat.id, "NO_CHANGEINFO_PERM"))
-            await asyncio.sleep(5.0)
-            await message.delete()
-        return
+    if chat.type != ChatType.PRIVATE:
+        if not await check_rights(chat.id, union.from_user.id, "can_change_info"):
+            if isinstance(union, CallbackQuery):
+                await union.answer(await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
+            else:
+                message = await reply(await tld(chat.id, "NO_CHANGEINFO_PERM"))
+                await asyncio.sleep(5.0)
+                await message.delete()
+            return
 
     keyboard = [
         [
             (await tld(chat.id, "MEDIAS_BNT"), "media_config"),
         ],
         [
-            (await tld(chat.id, "button_lang"), "language"),
+            (await tld(chat.id, "button_lang"), "lang_menu"),
         ],
     ]
 
