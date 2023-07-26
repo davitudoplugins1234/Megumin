@@ -305,26 +305,27 @@ async def sdl(c: megux, message: Message):
 @megux.on_message(filters.command("config"))
 async def config(client: megux, union: Message | CallbackQuery):
     reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
+    chat = union.message.chat if isinstance(union, CallbackQuery) else union.chat
 
-    if not await check_rights(union.chat.id, union.from_user.id, "can_change_info"):
+    if not await check_rights(chat.id, union.from_user.id, "can_change_info"):
         if isinstance(union, CallbackQuery):
-            await union.answer(await tld(union.chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
+            await union.answer(await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
         else:
-            message = await reply(await tld(union.chat.id, "NO_CHANGEINFO_PERM"))
+            message = await reply(await tld(chat.id, "NO_CHANGEINFO_PERM"))
             await asyncio.sleep(5.0)
             await message.delete()
         return
 
     keyboard = [
         [
-            (await tld(union.chat.id, "MEDIAS_BNT"), "media_config"),
+            (await tld(chat.id, "MEDIAS_BNT"), "media_config"),
         ],
         [
-            (await tld(union.chat.id, "button_lang"), "language"),
+            (await tld(chat.id, "button_lang"), "language"),
         ],
     ]
 
-    await reply(await tld(union.chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard))
+    await reply(await tld(chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard))
 
 
 
@@ -337,7 +338,7 @@ async def media_config(client: megux, callback: CallbackQuery):
                 await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60
             )
 
-    state = ["❎", "✅"]
+    state = ["☑️", "✅"]
     
     if "+" in callback.data and not (await cisdl(chat.id)):
         await tisdl(chat.id, True)
