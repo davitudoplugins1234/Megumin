@@ -303,7 +303,7 @@ async def sdl(c: megux, message: Message):
 
 @megux.on_callback_query(filters.regex(r"config"))
 @megux.on_message(filters.command("config"))
-async def config(client: Smudge, union: Message | CallbackQuery):
+async def config(client: megux, union: Message | CallbackQuery):
     reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
 
     if not await check_rights(union.chat.id, union.from_user.id, "can_change_info"):
