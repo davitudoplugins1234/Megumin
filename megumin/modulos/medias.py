@@ -24,7 +24,7 @@ from pyrogram.enums import ChatType, ChatAction
 
 
 from megumin import megux, Config 
-from megumin.utils import humanbytes, tld, csdl, cisdl, DownloadMedia, extract_info, http
+from megumin.utils import humanbytes, tld, csdl, cisdl, DownloadMedia, extract_info, http, admin_check, check_rights
 
 
 YOUTUBE_REGEX = re.compile(
@@ -301,3 +301,44 @@ async def sdl(c: megux, message: Message):
         return None
     return None
 
+
+@megux.on_callback_query(filters.regex(r"^media_config"))
+async def media_config(client: megux, callback: CallbackQuery):
+    chat = callback.message.chat
+    if chat.type != ChatType.PRIVATE:
+        if not await check_rights(chat.id, callback.from_user.id, "can_change_info"):
+            return await callback.answer(
+                await tld(chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60
+            )
+
+    state = ["☑️", "✅"]
+    
+    if "+" in callback.data and not (await cisdl(chat.id)):
+        await tisdl(chat.id, True)
+    elif "+" in callback.data and (await cisdl(chat.id)):
+        await tisdl(chat.id, False)
+
+    keyboard = [
+        [
+            (await tld(chat.id, "MEDIAS_CAPTION_BNT"), "media_config"),
+            (state[(await csdl(chat.id)), "media_config+"),
+        ],
+    ]
+
+    if chat.type != ChatType.PRIVATE:
+        if "-" in callback.data and not (await csdl(chat.id)):
+            await tsdl(chat.id, True)
+        elif "-" in callback.data and (await csdl(chat.id)):
+            await tsdl(chat.id, False)
+
+        keyboard += [
+            [
+                (await tld(chat.id, "AUTO_DOWNLOAD_BNT"), "media_config"),
+                (state[(await csdl(chat.id))], "media_config-"),
+            ]
+        ]
+
+    keyboard += [[(await tld(chat.id, "BACK_BNT"))]]
+    return await callback.edit_message_text(
+        await tld(chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard)
+    )
