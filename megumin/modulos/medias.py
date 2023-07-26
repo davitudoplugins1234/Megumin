@@ -301,6 +301,32 @@ async def sdl(c: megux, message: Message):
         return None
     return None
 
+@megux.on_callback_query(filters.regex(r"config"))
+@megux.on_message(filters.command("config"))
+async def config(client: Smudge, union: Message | CallbackQuery):
+    reply = union.edit_message_text if isinstance(union, CallbackQuery) else union.reply_text
+
+    if not await check_rights(union.chat.id, union.from_user.id, "can_change_info"):
+        if isinstance(union, CallbackQuery):
+            await union.answer(await tld(union.chat.id, "NO_CHANGEINFO_PERM"), show_alert=True, cache_time=60)
+        else:
+            message = await reply(await tld(union.chat.id, "NO_CHANGEINFO_PERM"))
+            await asyncio.sleep(5.0)
+            await message.delete()
+        return
+
+    keyboard = [
+        [
+            (await tld(union.chat.id, "MEDIAS_BNT"), "media_config"),
+        ],
+        [
+            (await tld(union.chat.id, "button_lang"), "language"),
+        ],
+    ]
+
+    await reply(await tld(union.chat.id, "CONFIG_TEXT")", reply_markup=ikb(keyboard))
+
+
 
 @megux.on_callback_query(filters.regex(r"^media_config"))
 async def media_config(client: megux, callback: CallbackQuery):
