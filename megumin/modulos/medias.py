@@ -24,7 +24,7 @@ from pyrogram.enums import ChatType, ChatAction
 
 
 from megumin import megux, Config 
-from megumin.utils import humanbytes, tld, csdl, cisdl, DownloadMedia, extract_info, http, admin_check, check_rights
+from megumin.utils import humanbytes, tld, csdl, cisdl, tsdl, tisdl, DownloadMedia, extract_info, http, admin_check, check_rights
 
 
 YOUTUBE_REGEX = re.compile(
