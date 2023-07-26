@@ -368,5 +368,5 @@ async def media_config(client: megux, callback: CallbackQuery):
 
     keyboard += [[(await tld(chat.id, "BACK_BNT"))]]
     return await callback.edit_message_text(
-        await tld(chat.id, "CONFIG_TEXT"), reply_markup=ikb(keyboard)
+        await tld(chat.id, "MEDIAS_CONFIG_TEXT"), reply_markup=ikb(keyboard)
     )
