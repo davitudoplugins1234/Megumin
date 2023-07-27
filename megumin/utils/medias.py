@@ -17,8 +17,8 @@ from .tools import http, aiowrap
 proxys = {
     "PROXIES":
     [
-        "https://95.216.17.79:3888",
-        "https://142.54.232.6:4145",
+        "https://107.181.161.81:4145",
+        "https://199.229.254.129:4145",
         "http://localhost:8030",
         "http://localhost:8000"
     ]
