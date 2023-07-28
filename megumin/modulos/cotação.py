@@ -7,7 +7,7 @@ from pyrogram.types import Message
 from megumin import megux, Config
 
 @megux.on_message(filters.command(["cota"], Config.TRIGGER))
-async def pegar_cotacoes(_, message):
+async def pegar_cotacoes(_, message: Message):
     req = requests.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,JPY-BRL,BTC-BRL,ETH-BRL,XRP-BRL,DOGE-BRL,ARS-BRL,RUB-BRL")
 
     res = req.json()
