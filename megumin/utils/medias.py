@@ -276,9 +276,8 @@ _limited_actions_policy_enabled": True,
             return
 
     async def TikTok(self, url: str, captions: str):
-        path = io.BytesIO()
-        file = path.encode()
-        with contextlib.redirect_stdout(file):
+        path = b"{io.BytesIO()}"
+        with contextlib.redirect_stdout(path):
             ydl = YoutubeDL({"outtmpl": "-"})
             yt = await extract_info(ydl, url, download=True)
         path.name = yt["title"]
