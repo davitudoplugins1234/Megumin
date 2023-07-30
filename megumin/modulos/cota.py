@@ -38,52 +38,9 @@ async def pegar_cotacoes(_, message: Message):
     await asyncio.sleep(0.3)
     await obting_info.delete()
 
-    result = f'''
-**Cotação das moedas:**
-
-💵 **Dólar:** R$ ```{cotacao_dolar}```
-🗓 **Data:**  ```{dat_dolar}```
-
-📊 **Variação:** ```{var_dolar}```
-
-
-💵 **Euro:** R$ ```{cotacao_euro}```
-🗓 **Data:**  ```{dat_euro}```
-
-📊 **Variação:** ```{var_euro}```
-
-
-💵 **BTC:** R$ ```{cotacao_btc}```
-🗓 **Data:**  ```{dat_btc}```
-
-📊 **Variação:** ```{var_btc}```
-
-
-💵 **DOGE:** R$ ```{cotacao_doge}```
-🗓 **Data:** ```{dat_doge}```
-
-📊 **Variação:** ```{var_doge}```
-
-
-💵 **Iene:** R$ ```{cotacao_iene}```
-🗓 **Data:** ```{dat_iene}```
-
-📊 **Variação:** ```{var_iene}```
-
-
-💵 **Peso Argentino:** R$ ```{cotacao_ars}```
-🗓 **Data:** ```{dat_ars}```
-
-📊 **Variação:** ```{var_ars}```
-
-
-💵 **Ruplo Russo:** R$ ```{cotacao_rub}```
-🗓 **Data:** ```{dat_rub}```
-
-📊 **Variação:** ```{var_rub}```
-'''
+    result = "<b>Cotação das moedas:</b>\n\n💵 <b>Dólar:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Euro:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>BTC:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>DOGE:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Iene:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n💵 <b>Peso Argentino:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Ruplo Russo:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>"
 
     await message.reply_photo(photo="https://telegra.ph/file/d60e879db1cdba793a98c.jpg",
-    caption=result)
+    caption=result.format(cotacao_dolar, dat_dolar, var_dolar, cotacao_euro, dat_euro, var_euro, cotacao_btc, dat_btc, var_btc, cotacao_doge, dat_doge, var_doge, cotacao_iene, dat_iene, var_iene, cotacao_ars, dat_ars, var_ars, cotacao_rub, dat_rub, var_rub))
     
     
