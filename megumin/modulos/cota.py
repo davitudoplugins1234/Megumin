@@ -1,5 +1,4 @@
-import requests
-import asyncio 
+import requests 
 
 from pyrogram import filters
 from pyrogram.types import Message
@@ -8,6 +7,8 @@ from megumin import megux, Config
 
 @megux.on_message(filters.command(["cota"], Config.TRIGGER))
 async def pegar_cotacoes(_, message: Message):
+    obting_info = await message.reply(f"<i>Obtendo informações sobre as moedas...</i>")
+
     req = requests.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,JPY-BRL,BTC-BRL,ETH-BRL,XRP-BRL,DOGE-BRL,ARS-BRL,RUB-BRL")
 
     res = req.json()
@@ -34,8 +35,6 @@ async def pegar_cotacoes(_, message: Message):
     dat_rub = res['RUBBRL']['create_date']
     var_rub = res['RUBBRL']['varBid']
 
-    obting_info = await message.reply(f"<i>Obtendo informações sobre as moedas...</i>")
-    await asyncio.sleep(0.3)
     await obting_info.delete()
 
     result = "<b>Cotação das moedas:</b>\n\n💵 <b>Dólar:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Euro:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>BTC:</b> R$ <code>{}</code>\n🗓 <b>Data:</b>  <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>DOGE:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Iene:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Peso Argentino:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>\n\n💵 <b>Ruplo Russo:</b> R$ <code>{}</code>\n🗓 <b>Data:</b> <code>{}</code>\n📊 <b>Variação:</b> <code>{}</code>"
