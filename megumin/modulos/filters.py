@@ -14,7 +14,7 @@ from pyrogram.enums import ChatType
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message, User
 
 from megumin import megux, Config
-from megumin.utils import get_collection, check_rights, tld, add_user_count, drop_info, disableable_dec, is_disabled
+from megumin.utils import get_collection, check_rights, tld, add_user_count, drop_info, disableable_dec, is_disabled, check_ban, check_antispam
 from megumin.utils.decorators import input_str
 
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
@@ -227,6 +227,10 @@ async def serve_filter(c: megux, m: Message):
     if m and m.from_user:
         await add_user_count(chat_id, m.from_user.id)
         await drop_info(m.from_user.id)
+        #Check if is GBANNED
+        if await check_antispam(m.chat.id):
+            await check_ban(m, m.chat.id, user_id)
+            return
     
     if not m.chat.type == ChatType.PRIVATE:
         found = await GROUPS.find_one({"id_": chat_id})
