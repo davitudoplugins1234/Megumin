@@ -150,7 +150,6 @@ async def greet_new_members(c: megux, m: Message):
     #Check if is GBANNED
     if await check_antispam(m.chat.id):
         await check_ban(m, m.chat.id, user_id)
-        return
         
     mention = ", ".join(map(lambda a: a.mention, members))
     await add_user_count(m.chat.id, user_id)
