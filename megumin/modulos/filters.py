@@ -227,12 +227,12 @@ async def serve_filter(c: megux, m: Message):
     if m and m.from_user:
         await add_user_count(chat_id, m.from_user.id)
         await drop_info(m.from_user.id)
+    
+    if not m.chat.type == ChatType.PRIVATE:
         #Check if is GBANNED
         if await check_antispam(m.chat.id):
             await check_ban(m, m.chat.id, user_id)
             return
-    
-    if not m.chat.type == ChatType.PRIVATE:
         found = await GROUPS.find_one({"id_": chat_id})
         if not found:
             await asyncio.gather(
