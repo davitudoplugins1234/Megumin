@@ -29,7 +29,7 @@ class GoogleImagesAPI:
                 return 0, 0
     
     def image(self, query: str, chat_id: str):
-        url = "https://www.google.com/search?tbm=isch&q=" + query
+        url = f"https://www.google.com/search?q={query}&source=lnms&tbm=isch"
         response = requests.get(url, headers=self.headers)
         soup = BeautifulSoup(response.content, 'html.parser')
         images = []
