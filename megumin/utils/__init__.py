@@ -12,7 +12,6 @@ from .logger import logging
 from .gsmarena import search, device_info
 from .tools import extract_time  # nao_meche
 from .decorators import disableable_dec, DISABLABLE_CMDS, input_str, inline_handler
-from .gimages import GoogleImagesAPI
 from .pexels import PexelsImagesAPI
 from .check import check_requirements
 from .medias import DownloadMedia, extract_info
