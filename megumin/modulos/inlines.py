@@ -15,11 +15,10 @@ from pyrogram.types import (
 from uuid import uuid4
 
 from megumin import megux
-from megumin.utils import inline_handler, GoogleImagesAPI, PexelsImagesAPI
+from megumin.utils import inline_handler, PexelsImagesAPI
 
 
 info_thumb_url = "https://telegra.ph/file/0bf64eb57a779f7bf18c2.png"
-picgo_thumb_url = "https://telegra.ph/file/ab4cc383d35bf14fa3e88.png"
 images_thumb_url = "https://telegra.ph/file/fa89b430dd0ce176bf001.png"
 
 
@@ -112,23 +111,6 @@ async def info_inline(c: megux, q: InlineQuery):
     )
 
 
-@megux.on_inline_query(filters.regex(r"^picgo"))
-async def picgo(c: megux, q: InlineQuery):
-    gimg = GoogleImagesAPI()
-    try:
-        query = q.query.split(maxsplit=1)[1]
-        user_id = q.from_user.id
-        res = gimg.results_photo(query, user_id)
-    except Exception:
-        return
-    try:
-        await q.answer(
-            results=res,
-            cache_time=0,
-        )
-    except Exception:
-        return
-
 @megux.on_inline_query(filters.regex(r"^images"))
 async def images(c: megux, q: InlineQuery):
     pexels = PexelsImagesAPI()
@@ -159,6 +141,5 @@ async def images(c: megux, q: InlineQuery):
         return
 
     
-inline_handler.add_cmd("info <username>", "Get the specified user information", info_thumb_url, aliases=["info"])
-inline_handler.add_cmd("picgo <query>", "Gets Images from Google (at low resolution 144p).", picgo_thumb_url, aliases=["images"])
-inline_handler.add_cmd("images <query>", "Get Images from Pexels (In high quality)", images_thumb_url, aliases=["images"])
+inline_handler.add_cmd("info <username>", "Get the specified user information", info_thumb_url, aliases=["whois"])
+inline_handler.add_cmd("images <query>", "Get Images from Pexels (In high quality)", images_thumb_url, aliases=["pexels"])
