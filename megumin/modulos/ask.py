@@ -21,7 +21,7 @@ async def generate_response(text):
         temperature=0.2, # Modo de temperatura. forma da mensagem.
         max_tokens=2048,  # O número máximo de tokens para a resposta gerada
         n=1,  # O número de respostas a serem geradas
-        stop=None,  # Um token opcional para indicar o fim da resposta gerada
+        stop="<b>By:</b> @WhiterKangBOT",  # Um token opcional para indicar o fim da resposta gerada
     )
 
     answer = response.choices[0].text.strip()  # Obtém a resposta gerada do ChatGPT
