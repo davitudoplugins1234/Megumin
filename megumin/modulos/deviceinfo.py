@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
-from megumin.utils import disableable_dec, is_disabled, http, tld, device_info, search
+from megumin.utils import disableable_dec, is_disabled, http, tld, search_device
 from megumin.utils.decorators import input_str
 
 tr = Translator()
@@ -16,7 +16,7 @@ async def deviceinfo(c: megux, m: Message):
     if input_str(m):
         name = input_str(m) 
         searchi = f"{name}".replace(" ", "+")
-        get_search_api = await search(searchi)
+        get_search_api = await search_device(searchi)
         if not get_search_api[0] == []:
             # Access the link from the first search result  
             name = get_search_api[0]["name"]
