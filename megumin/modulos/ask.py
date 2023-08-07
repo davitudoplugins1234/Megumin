@@ -10,11 +10,8 @@ from megumin import megux, Config
 from megumin.utils import get_collection, get_string, disableable_dec, is_disabled, input_str
 
 
-
-
-openai.api_key = Config.API_CHATGPT
-
 async def generate_response(text):
+    openai.api_key = Config.API_CHATGPT
     response = openai.Completion.create(
         engine='text-davinci-003',  # Especifique o modelo do ChatGPT a ser usado
         prompt=text,  # O texto de entrada ou pergunta para o modelo
