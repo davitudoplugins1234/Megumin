@@ -277,13 +277,17 @@ _limited_actions_policy_enabled": True,
         except KeyError:
             return
 
-    async def TikTok(self, url: str, captions: str):
-        with tempfile.TemporaryDirectory() as tempdir:
-            path = os.path.join(tempdir, "ytdl")
-        ydl_opts = YoutubeDL({"outtmpl": "-"})
-        with ydl_opts as ydl:
-            yt = await extract_info(ydl, url, download=True)
-        path.name = yt["title"]
+    async def TikTok(url: str, captions: str):
+    with tempfile.TemporaryDirectory() as tempdir:
+        path = os.path.join(tempdir, "dl")
+        ydl = YoutubeDL({"outtmpl": "-"})
+        try:
+            yt = ydl.extract_info(url, download=True)
+        except Exception as e:
+            print(f"Erro ao extrair informações: {e}")
+            return
+        
+        filename = yt["title"]
         self.caption = f"{yt['title']}\n\n<a href='{url}'>🔗 Link</a>"
         self.files.append(
             {
@@ -292,7 +296,6 @@ _limited_actions_policy_enabled": True,
                 "h": yt["formats"][0]["height"],
             }
         )
-
 
     async def Threads(self, url: str, captions: str):
         httpx = await self.httpx("https://www.threads.net/")
