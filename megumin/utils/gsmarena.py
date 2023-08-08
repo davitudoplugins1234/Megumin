@@ -60,10 +60,13 @@ def get_device(device):
         category = el.find('th').get_text()
         spec_n = el.find_all('tr')
         for ele in spec_n:
-            spec_list.append({
-                'name': ele.find('td', class_='ttl').get_text(),
-                'value': ele.find('td', class_='nfo').get_text(),
-            })
+            ttl = ele.find('td', class_='ttl')
+            nfo = ele.find('td', class_='nfo')
+            if ttl and nfo:
+                spec_list.append({
+                    'name': ttl.get_text(),
+                    'value': nfo.get_text(),
+                })
         if category:
             detail_spec.append({
                 'category': category,
