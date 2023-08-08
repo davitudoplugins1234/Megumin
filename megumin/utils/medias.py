@@ -278,10 +278,10 @@ _limited_actions_policy_enabled": True,
             return
 
     async def TikTok(url: str, captions: str):
-    with tempfile.TemporaryDirectory() as tempdir:
-        path = os.path.join(tempdir, "dl")
-        ydl = YoutubeDL({"outtmpl": "-"})
+        with tempfile.TemporaryDirectory() as tempdir:
+            path = os.path.join(tempdir, "dl")
         try:
+            ydl = YoutubeDL({"outtmpl": "-"})
             yt = ydl.extract_info(url, download=True)
         except Exception as e:
             print(f"Erro ao extrair informações: {e}")
