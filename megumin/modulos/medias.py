@@ -33,6 +33,8 @@ YOUTUBE_REGEX = re.compile(
 
 SDL_REGEX_LINKS = r"(?:htt.+?//)?(?:.+?)?(?:instagram|twitter|tiktok|threads).(com|net)\/(?:\S*)"
 
+TIME_REGEX = re.compile(r"[?&]t=([0-9]+)")
+
 MAX_FILESIZE = 2000000000
 
 
@@ -50,14 +52,19 @@ async def ytdlcmd(c: megux, m: Message):
 
     ydl = YoutubeDL({"noplaylist": True})
 
-    if rege := YOUTUBE_REGEX.match(url):
-        yt = await extract_info(ydl, rege.group(), download=False)
-    else:
+    rege = YOUTUBE_REGEX.match(url)
+
+    t = TIME_REGEX.search(url)
+    temp = t.group(1) if t else 0
+
+    if not rege:
         yt = await extract_info(ydl, f"ytsearch:{url}", download=False)
         try:
             yt = yt["entries"][0]
         except IndexError:
             return
+    else:
+        yt = await extract_info(ydl, rege.group(), download=False)
 
     for f in yt["formats"]:
         if f["format_id"] == "140":
@@ -70,11 +77,11 @@ async def ytdlcmd(c: megux, m: Message):
         [
             (
                 await tld(m.chat.id, "SONG_BNT"),
-                f'_aud.{yt["id"]}|{afsize}|{vformat}|{user}|{m.id}',
+                f'_aud.{yt["id"]}|{afsize}|{vformat}|{temp}|{user}|{m.id}',
             ),
             (
                 await tld(m.chat.id, "VID_BNT"),
-                f'_vid.{yt["id"]}|{vfsize}|{vformat}|{user}|{m.id}',
+                f'_vid.{yt["id"]}|{vfsize}|{vformat}|{temp}|{user}|{m.id}',
             ),
         ]
     ]
@@ -95,7 +102,7 @@ async def ytdlcmd(c: megux, m: Message):
 @megux.on_callback_query(filters.regex("^(_(vid|aud))"))
 async def cli_ytdl(c: megux, cq: CallbackQuery):
     try:
-        data, fsize, vformat, userid, mid = cq.data.split("|")
+        data, fsize, vformat, temp, userid, mid = cq.data.split("|")
     except ValueError:
         return print(cq.data)
     if cq.from_user.id != int(userid):
@@ -112,23 +119,41 @@ async def cli_ytdl(c: megux, cq: CallbackQuery):
         await cq.message.edit(await tld(cq.message.chat.id, "DOWNLOAD_YT"))
     except MessageNotModified:
         await cq.message.reply_text(await tld(cq.message.chat.id, "DOWNLOAD_YT"))
-        
-    try:  # Downloader
-        file = io.BytesIO()
-        with contextlib.redirect_stdout(file), YoutubeDL({"outtmpl": "-"}) as ydl:
-            format = f"{vformat}+140" if "vid" in data else "ba[ext=m4a]"
-            ydl.params.update({"format": format, "noplaylist": True})
-            yt = await extract_info(ydl, url, download=True)
-        file.name = yt["title"]
+    with tempfile.TemporaryDirectory() as tempdir:
+        path = os.path.join(tempdir, "ytdl")
+
+    ttemp = f"⏰ {datetime.timedelta(seconds=int(temp))} | " if int(temp) else ""
+    if "vid" in data:
+        ydl = YoutubeDL(
+            {
+                "outtmpl": f"{path}/%(title)s-%(id)s.%(ext)s",
+                "format": f"{vformat}+140",
+                "max_filesize": MAX_FILESIZE,
+                "noplaylist": True,
+            }
+        )
+    else:
+        ydl = YoutubeDL(
+            {
+                "outtmpl": f"{path}/%(title)s-%(id)s.%(ext)s",
+                "format": "bestaudio[ext=m4a]",
+                "max_filesize": MAX_FILESIZE,
+                "noplaylist": True,
+            }
+        )
+    try:
+        yt = await extract_info(ydl, url, download=True)
     except BaseException as e:
-        return await cq.message.edit_text("Error: {errmsg}".format(errmsg=e))
-        
+        await c.send_log(e)
+        await cq.message.edit("<b>Error:</b> <i>{}</i>".format(e))
+        return
     try:
         await cq.message.edit(await tld(cq.message.chat.id, "UPLOADING_YT"))
     except MessageNotModified:
         await cq.message.reply_text(await tld(cq.message.chat.id, "UPLOADING_YT"))
     await c.send_chat_action(cq.message.chat.id, enums.ChatAction.UPLOAD_VIDEO)
 
+    filename = ydl.prepare_filename(yt)
     thumb = io.BytesIO((await http.get(yt["thumbnail"])).content)
     thumb.name = "thumbnail.png"
     views = 0
@@ -141,10 +166,10 @@ async def cli_ytdl(c: megux, cq: CallbackQuery):
         try:
             await c.send_video(
                 cq.message.chat.id,
-                video=file,
+                video=filename,
                 width=1920,
                 height=1080,
-                caption=(await tld(cq.message.chat.id, "YOUTUBE_CAPTION")).format(yt["title"], url or "", datetime.timedelta(seconds=yt["duration"]) or 0, yt["channel"] or None, views, likes),
+                caption=(await tld(cq.message.chat.id, "YOUTUBE_CAPTION")).format(ttemp + yt["title"], url or "", datetime.timedelta(seconds=yt["duration"]) or 0, yt["channel"] or None, views, likes),
                 duration=yt["duration"],
                 thumb=thumb,
                 reply_to_message_id=int(mid),
@@ -166,10 +191,10 @@ async def cli_ytdl(c: megux, cq: CallbackQuery):
         try:
             await c.send_audio(
                 cq.message.chat.id,
-                audio=file,
+                audio=filename,
                 title=title,
                 performer=performer,
-                caption=(await tld(cq.message.chat.id, "YOUTUBE_CAPTION")).format(yt["title"], url or "", datetime.timedelta(seconds=yt["duration"]) or 0, yt["channel"] or None, views, likes),
+                caption=(await tld(cq.message.chat.id, "YOUTUBE_CAPTION")).format(ttemp + yt["title"], url or "", datetime.timedelta(seconds=yt["duration"]) or 0, yt["channel"] or None, views, likes),
                 duration=yt["duration"],
                 thumb=thumb,
                 reply_to_message_id=int(mid),
@@ -180,6 +205,8 @@ async def cli_ytdl(c: megux, cq: CallbackQuery):
             )
         else:
             await cq.message.delete()
+
+    shutil.rmtree(tempdir, ignore_errors=True)
 
 
     
