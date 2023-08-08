@@ -2,6 +2,7 @@
 # Copyright (c) 2023 DaviTudo (@DaviTudo)
 import contextlib
 import io
+import os
 import json
 import re
 import uuid
