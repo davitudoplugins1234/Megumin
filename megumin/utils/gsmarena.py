@@ -31,7 +31,7 @@ def search_device(searchValue):
     return json
 
 def get_device(device):
-    html = getDataFromUrl(f'www.gsmarena.com/{device}.php')
+    html = getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
     display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text()
     display_res = soup.find('div', {'data-spec': 'displayres-hl'}).get_text()
