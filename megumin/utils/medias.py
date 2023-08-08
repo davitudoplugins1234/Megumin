@@ -5,9 +5,10 @@ import io
 import json
 import re
 import uuid
-
 import esprima
 import filetype
+import tempfile
+
 from bs4 import BeautifulSoup as bs
 from httpx import AsyncClient
 from yt_dlp import YoutubeDL
@@ -276,8 +277,8 @@ _limited_actions_policy_enabled": True,
             return
 
     async def TikTok(self, url: str, captions: str):
-        path = io.BytesIO()
-        with contextlib.redirect_stdout(path):
+        with tempfile.TemporaryDirectory() as tempdir:
+            path = os.path.join(tempdir, "ytdl")
             ydl = YoutubeDL({"outtmpl": "-"})
             yt = await extract_info(ydl, url, download=True)
         path.name = yt["title"]
