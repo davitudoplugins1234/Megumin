@@ -52,7 +52,7 @@ def get_device(device):
         {'name': 'Battery type', 'value': battery_type},
     ]
     name = soup.find(class_='specs-phone-name-title').get_text()
-    img = soup.find('img', class_='specs-photo-main')['src']
+    img = soup.find(class_='specs-photo-main')['src']
     spec_nodes = soup.find_all('table')
     detail_spec = []
     for el in spec_nodes:
