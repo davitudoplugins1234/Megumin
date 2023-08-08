@@ -280,7 +280,8 @@ _limited_actions_policy_enabled": True,
     async def TikTok(self, url: str, captions: str):
         with tempfile.TemporaryDirectory() as tempdir:
             path = os.path.join(tempdir, "ytdl")
-            ydl = YoutubeDL({"outtmpl": "-"})
+        ydl_opts = YoutubeDL({"outtmpl": "-"})
+        with ydl_opts as ydl:
             yt = await extract_info(ydl, url, download=True)
         path.name = yt["title"]
         self.caption = f"{yt['title']}\n\n<a href='{url}'>🔗 Link</a>"
