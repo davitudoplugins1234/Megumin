@@ -121,7 +121,7 @@ async def cli_ytdl(c: megux, cq: CallbackQuery):
             yt = await extract_info(ydl, url, download=True)
         file.name = yt["title"]
     except BaseException as e:
-        return await cq.message.edit_text("Error: {}".format(errmsg=e))
+        return await cq.message.edit_text("Error: {errmsg}".format(errmsg=e))
         
     try:
         await cq.message.edit(await tld(cq.message.chat.id, "UPLOADING_YT"))
