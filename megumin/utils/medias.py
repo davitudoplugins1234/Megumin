@@ -277,7 +277,7 @@ _limited_actions_policy_enabled": True,
         except KeyError:
             return
 
-    async def TikTok(url: str, captions: str):
+    async def TikTok(self, url: str, captions: str):
         with tempfile.TemporaryDirectory() as tempdir:
             path = os.path.join(tempdir, "dl")
         try:
