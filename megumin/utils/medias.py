@@ -282,7 +282,7 @@ _limited_actions_policy_enabled": True,
             path = os.path.join(tempdir, "dl")
         try:
             ydl = YoutubeDL({"outtmpl": "-"})
-            yt = ydl.extract_info(url, download=True)
+            yt = await extract_info(ydl, url, download=True)
         except Exception as e:
             print(f"Erro ao extrair informações: {e}")
             return
