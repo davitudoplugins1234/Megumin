@@ -239,30 +239,23 @@ async def sdl(c: megux, message: Message):
             id=[InputMessageID(id=(message.id))],
         )
 
-    msg = await message.reply(await tld(message.chat.id, "DOWNLOAD_YT"))
-    
     rawM = (await c.invoke(method)).messages[0].media
     try:
         files, caption = await DownloadMedia().download(url, captions)
     except BaseException as e:
         await asyncio.gather(c.send_err(f"[BaseException]: {e}"))
-        await msg.edit(f"An error ocurred: [BaseException]: {e}")
         return
     except Exception as e:
         await asyncio.gather(c.send_err(f"[Exception]: {e}"))
-        await msg.edit(f"An error ocurred: [Exception]: {e}")
         return
     
     if len(caption) > 1024:
         caption = caption[:1021] + "..."
-
-    await msg.edit(await tld(message.chat.id, "UPLOADING_YT"))
     
     medias = []
     for media in files:
         if filetype.is_video(media["p"]) and len(files) == 1:
             await c.send_chat_action(message.chat.id, ChatAction.UPLOAD_VIDEO)
-            await msg.delete()
             return await message.reply_video(
                 video=media["p"],
                 width=media["h"],
@@ -297,7 +290,6 @@ async def sdl(c: megux, message: Message):
             return None
 
         await c.send_chat_action(message.chat.id, ChatAction.UPLOAD_DOCUMENT)
-        await msg.delete()
         await message.reply_media_group(media=medias)
         return None
     return None
