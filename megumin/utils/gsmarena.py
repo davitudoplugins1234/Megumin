@@ -16,7 +16,7 @@ def getDataFromUrl(url):
     random.shuffle(shuffled_proxies)   # Shuffle the list of proxies
     for proxy in shuffled_proxies:
         try:
-            response = requests.get(url, proxies={'https': proxy})
+            response = requests.get(url, proxies={'http': proxy})
             response.raise_for_status()  # Raise an exception for HTTP errors
             return response
         except requests.RequestException as e:
