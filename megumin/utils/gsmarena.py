@@ -4,8 +4,15 @@ import json
 import random
 import asyncio
 
+proxies = {
+    "http": "http://50.170.90.34:80",
+    "http": "http://50.171.2.10:80",
+    "http": "http://localhost:3800",
+    "http": "http://localhost:5830",
+}
+
 def getDataFromUrl(url):
-    response = requests.get(url)
+    response = requests.get(url, proxies=proxies)
     return response.text
     
 def search_device(searchValue):
