@@ -20,9 +20,10 @@ def getDataFromUrl(url):
         try:
             response = requests.get(url, proxies={'http': proxy})
             response.raise_for_status()  # Raise an exception for HTTP errors
-            return response.text
+            return response
         except requests.RequestException as e:
             print(f"Error fetching data from {url} using proxy {proxy}: {e}")
+            await asyncio.sleep(2)
             continue  # Try the next proxy in case of an error
         else:
             print(f"Data fetched successfully using proxy {proxy}")
