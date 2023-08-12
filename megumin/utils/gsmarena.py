@@ -12,24 +12,9 @@ proxies = {
 }
 
 def getDataFromUrl(url):
-    shuffled_proxies = proxies.copy()  # Create a copy of the dict
-    random.shuffle(shuffled_proxies)   # Shuffle the dict of proxies
-    for proxy in shuffled_proxies:
-        try:
-            response = requests.get(url, proxies=proxy)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            return response
-        except requests.RequestException as e:
-            print(f"Error fetching data from {url} using proxy {proxy}: {e}")
-            time.sleep(2)
-            continue  # Try the next proxy in case of an error
-        else:
-            print(f"Data fetched successfully using proxy {proxy}")
-            break  # Exit the loop if data is fetched successfully
+    response = requests.get(url, proxies=proxies)
+    return response.text
     
-    # If all proxies fail, return None
-    return None
-
 def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
     html = getDataFromUrl(url)
