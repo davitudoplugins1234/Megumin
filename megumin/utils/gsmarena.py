@@ -1,12 +1,35 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import uuid
+import random
 import asyncio
 
+proxies = [
+    "http://8.219.169.172:20201",
+    "http://119.13.111.169:20201",
+    "http://121.37.203.216:20201",
+    "http://47.254.158.115:20201",
+    "http://localhost:8080",
+    "http://localhost:3000",
+]
+
 def getDataFromUrl(url):
-    response = requests.get(url)
-    return response.text
+    shuffled_proxies = proxies.copy()  # Create a copy of the list
+    random.shuffle(shuffled_proxies)   # Shuffle the list of proxies
+    for proxy in shuffled_proxies:
+        try:
+            response = requests.get(url, proxies={'http': proxy})
+            response.raise_for_status()  # Raise an exception for HTTP errors
+            return response.text
+        except requests.RequestException as e:
+            print(f"Error fetching data from {url} using proxy {proxy}: {e}")
+            continue  # Try the next proxy in case of an error
+        else:
+            print(f"Data fetched successfully using proxy {proxy}")
+            break  # Exit the loop if data is fetched successfully
+    
+    # If all proxies fail, return None
+    return None
 
 def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
