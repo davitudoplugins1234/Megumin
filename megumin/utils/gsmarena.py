@@ -3,16 +3,9 @@ from bs4 import BeautifulSoup
 import json
 import random
 import asyncio
-import time
-
-proxies = {
-    "https": "https://8.209.249.96:20201",
-    "https": "https://8.208.90.194:1001",
-    "https": "https://47.253.105.175:3128",
-}
 
 def getDataFromUrl(url):
-    response = requests.get(url, proxies=proxies, verify=False)
+    response = requests.get(url)
     return response.text
     
 def search_device(searchValue):
