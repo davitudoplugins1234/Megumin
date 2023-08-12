@@ -12,7 +12,7 @@ proxies = {
 }
 
 def getDataFromUrl(url):
-    response = requests.get(url, proxies=proxies)
+    response = requests.get(url, proxies=proxies, verify=False)
     return response.text
     
 def search_device(searchValue):
