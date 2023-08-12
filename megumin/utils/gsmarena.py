@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import random
 import asyncio
+import time
 
 proxies = [
     "http://8.219.169.172:20201",
@@ -23,7 +24,7 @@ def getDataFromUrl(url):
             return response
         except requests.RequestException as e:
             print(f"Error fetching data from {url} using proxy {proxy}: {e}")
-            await asyncio.sleep(2)
+            time.sleep(2)
             continue  # Try the next proxy in case of an error
         else:
             print(f"Data fetched successfully using proxy {proxy}")
