@@ -12,7 +12,7 @@ proxies = {
 }
 
 def getDataFromUrl(url):
-    agent = uuid.uuid4()
+    agent = str(uuid.uuid4())
     headers={"User-Agent": agent}
     response = requests.get(url, headers=headers, proxies=proxies)
     return response.text
