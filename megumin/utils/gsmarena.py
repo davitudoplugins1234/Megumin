@@ -6,12 +6,9 @@ import asyncio
 import time
 
 proxies = [
-    "http://8.219.169.172:20201",
-    "http://119.13.111.169:20201",
-    "http://121.37.203.216:20201",
-    "http://47.254.158.115:20201",
-    "http://localhost:8080",
-    "http://localhost:3000",
+    "https://8.209.249.96:20201",
+    "https://8.208.90.194:1001",
+    "https://47.253.105.175:3128",
 ]
 
 def getDataFromUrl(url):
@@ -19,7 +16,7 @@ def getDataFromUrl(url):
     random.shuffle(shuffled_proxies)   # Shuffle the list of proxies
     for proxy in shuffled_proxies:
         try:
-            response = requests.get(url, proxies={'http': proxy})
+            response = requests.get(url, proxies={'https': proxy})
             response.raise_for_status()  # Raise an exception for HTTP errors
             return response
         except requests.RequestException as e:
