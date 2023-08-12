@@ -21,8 +21,8 @@ async def deviceinfo(c: megux, m: Message):
             # Access the link from the first search result  
             name = get_search_api[0]["name"]
             img = get_search_api[0]["img"]
-            link = f"https://www.gsmarena.com/{get_search_api[0]["id"]}.php"
             id = get_search_api[0]["id"]
+            link = f"https://www.gsmarena.com/{id}.php"
             description = get_search_api[0]["description"]
             try:
                 get_device_api = get_device(id)
