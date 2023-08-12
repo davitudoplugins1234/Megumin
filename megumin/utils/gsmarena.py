@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import random
+import uuid
 import asyncio
 
 proxies = {
@@ -12,7 +12,8 @@ proxies = {
 }
 
 def getDataFromUrl(url):
-    response = requests.get(url, proxies=proxies)
+    headers={"User-Agent": f"{uuid.uuid4()}"}
+    response = requests.get(url, headers=headers, proxies=proxies)
     return response.text
     
 def search_device(searchValue):
