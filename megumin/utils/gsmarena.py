@@ -5,18 +5,18 @@ import random
 import asyncio
 import time
 
-proxies = [
-    "https://8.209.249.96:20201",
-    "https://8.208.90.194:1001",
-    "https://47.253.105.175:3128",
-]
+proxies = {
+    "https": "https://8.209.249.96:20201",
+    "https": "https://8.208.90.194:1001",
+    "https": "https://47.253.105.175:3128",
+}
 
 def getDataFromUrl(url):
-    shuffled_proxies = proxies.copy()  # Create a copy of the list
-    random.shuffle(shuffled_proxies)   # Shuffle the list of proxies
+    shuffled_proxies = proxies.copy()  # Create a copy of the dict
+    random.shuffle(shuffled_proxies)   # Shuffle the dict of proxies
     for proxy in shuffled_proxies:
         try:
-            response = requests.get(url, proxies={'http': proxy})
+            response = requests.get(url, proxies=proxy)
             response.raise_for_status()  # Raise an exception for HTTP errors
             return response
         except requests.RequestException as e:
