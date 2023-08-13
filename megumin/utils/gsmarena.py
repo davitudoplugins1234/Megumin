@@ -18,7 +18,7 @@ async def getDataFromUrl(url):
     
 async def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
-    html = getDataFromUrl(url)
+    html = await getDataFromUrl(url)
 
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -39,7 +39,7 @@ async def search_device(searchValue):
     return json
 
 async def get_device(device):
-    html = getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
+    html = await getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
     display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text()
     display_res = soup.find('div', {'data-spec': 'displayres-hl'}).get_text()
