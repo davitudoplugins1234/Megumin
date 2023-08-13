@@ -1,11 +1,10 @@
 from httpx import AsyncClient
 from bs4 import BeautifulSoup
 from fake_headers import Headers
+import requests
 import json
 import uuid
 import asyncio
-
-from .tools import http
 
 proxys = {
     "PROXIES":
@@ -25,11 +24,14 @@ async def getDataFromUrl(url):
         os="win",
         headers=True
     )
-    res = await http.get(url, headers=header.generate())
+    res = requests.get(url, headers=header.generate())
     if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
-            http_client = AsyncClient(proxies=proxy, verify=False)
-            response = await http_client.get(url, headers=header.generate())
+            proxys = {
+                "http": proxy,
+                "https": proxy
+            }
+            response = await http_client.get(url, headers=header.generate(), proxies=proxys, verify=False)
             if response.status_code == 200:
                 break
         return response.text
