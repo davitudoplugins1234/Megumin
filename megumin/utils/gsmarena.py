@@ -19,7 +19,7 @@ proxys = {
     
 }
 
-async def getDataFromUrl(url):
+def getDataFromUrl(url):
     header = Headers(
         browser="chrome",
         os="win",
@@ -38,9 +38,9 @@ async def getDataFromUrl(url):
     else:  # noqa: RET505
         return res.text
     
-async def search_device(searchValue):
+def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
-    html = await getDataFromUrl(url)
+    html = getDataFromUrl(url)
 
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -52,19 +52,21 @@ async def search_device(searchValue):
         imgBlock = el.find('img')
 
         json.append({
-            'id': el.find('a')['href'].replace('.php', '') or None,
-            'name': el.find('span').text.replace('\n', '').replace('\r', '').replace('\t', '') or None,
-            'img': imgBlock['src'] or None,
-            'description': imgBlock['title'] or None,
+            'id': el.find('a')['href'].replace('.php', ''),
+            'name': el.find('span').text.replace('\n', '').replace('\r', '').replace('\t', ''),
+            'img': imgBlock['src'],
+            'description': imgBlock['title'],
         })
 
     return json
 
-async def get_device(device):
-    html = await getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
+def get_device(device):
+    html = getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
-    display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text() or None
-    display_res = soup.find('div', {'data-spec': 'displayres-hl'}).get_text() or None
+    display_size_base = soup.find('span', {'data-spec': 'displaysize-hl'})
+    display_size = display_size_base.get_text() if display_size_base else "N/A"
+    display_res_base = soup.find('div', {'data-spec': 'displayres-hl'})
+    display_res = display_res_base.get_text() if display_res_base else "N/A"
     camera_pixels = soup.find(class_='accent-camera').get_text() or None
     video_pixels = soup.find('div', {'data-spec': 'videopixels-hl'}).get_text() or None
     ram_size = soup.find(class_='accent-expansion').get_text() or None
