@@ -1,12 +1,13 @@
+import httpx
 from bs4 import BeautifulSoup
 from fake_headers import Headers
 import json
 import uuid
 import asyncio
 
-from megumin.utils import http
-
 async def getDataFromUrl(url):
+    timeout = httpx.Timeout(30, pool=None)
+    http = httpx.AsyncClient(http2=True, timeout=timeout)
     headeragent = Headers(
         browser="chrome",
         os="win",
