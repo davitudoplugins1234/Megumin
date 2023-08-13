@@ -27,16 +27,16 @@ async def deviceinfo(c: megux, m: Message):
             try:
                 get_device_api = await get_device(id)
                 name_cll = get_device_api["name"]
-                s1 = get_search_api[0]["processor"]
-                s1_name = "Processador"
-                s2 = get_search_api[0]["ram"]
-                s2_name = "Memoria Ram"
-                s3 = get_search_api[0]["internal_storage"]
-                s3_name = "Memória interna"
-                s4 = get_search_api[0]["description"]
-                s4_name = "Descrição"
-                s5 = get_search_api[0]["battery"]
-                s5_name = "Bateria"
+                s1 = get_device_api['detailSpec'][5]['specifications'][2]['value']
+                s1_name = get_device_api['detailSpec'][5]['specifications'][2]['name']
+                s2 = get_device_api['detailSpec'][5]['specifications'][1]['value']
+                s2_name = get_device_api['detailSpec'][5]['specifications'][1]['name']
+                s3 = get_device_api['detailSpec'][6]['specifications'][1]['value']
+                s3_name = get_device_api['detailSpec'][6]['specifications'][1]['name']
+                s4 = get_device_api['detailSpec'][15]['specifications'][1]['value']
+                s4_name = getdevice_api['detailSpec'][15]['specifications'][1]['name']
+                s5 = get_device_api['detailSpec'][2]['specifications'][3]['value']
+                s5_name = get_device_api['detailSpec'][2]['specifications'][3]['name']
                 await m.reply(f"<b>Foto Device</b>: {img}\n<b>URL Fonte:</b>: https://www.gsmarena.com/{id}.php\n\n<b>- Aparelho</b>:  <i>{name_cll}</i>\n<b>- {s1_name}</b>: <i>{s1}</i>\n<b>- {s2_name}</b>: <i>{s2}</i>\n<b>- {s3_name}</b>: <i>{s3}</i>\n<b>- {s4_name}</b>: <i>{s4}</i>\n<b>- {s5_name}</b>: <i>{s5}</i>\n\n<b>Descrição</b>: {description}", disable_web_page_preview=False)
             except Exception as err:
                 return await m.reply(f"Não consegui obter resultados sobre o aparelho. O gsmarena pode estar offline. <i>Erro</i>: <b>{err}</b>")
