@@ -25,7 +25,7 @@ async def getDataFromUrl(url):
         os="win",
         headers=True
     )
-    res = requests.get(url)
+    res = requests.get(url, headers=header.generate())
     if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
             proxies = {
