@@ -52,10 +52,10 @@ async def search_device(searchValue):
         imgBlock = el.find('img')
 
         json.append({
-            'id': el.find('a')['href'].replace('.php', ''),
-            'name': el.find('span').text.replace('\n', '').replace('\r', '').replace('\t', ''),
-            'img': imgBlock['src'],
-            'description': imgBlock['title'],
+            'id': el.find('a')['href'].replace('.php', '') or None,
+            'name': el.find('span').text.replace('\n', '').replace('\r', '').replace('\t', '') or None,
+            'img': imgBlock['src'] or None,
+            'description': imgBlock['title'] or None,
         })
 
     return json
@@ -63,14 +63,14 @@ async def search_device(searchValue):
 async def get_device(device):
     html = await getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
-    display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text()
-    display_res = soup.find('div', {'data-spec': 'displayres-hl'}).get_text()
-    camera_pixels = soup.find(class_='accent-camera').get_text()
-    video_pixels = soup.find('div', {'data-spec': 'videopixels-hl'}).get_text()
-    ram_size = soup.find(class_='accent-expansion').get_text()
-    chipset = soup.find('div', {'data-spec': 'chipset-hl'}).get_text()
-    battery_size = soup.find(class_='accent-battery').get_text()
-    battery_type = soup.find('div', {'data-spec': 'battype-hl'}).get_text()
+    display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text() or None
+    display_res = soup.find('div', {'data-spec': 'displayres-hl'}).get_text() or None
+    camera_pixels = soup.find(class_='accent-camera').get_text() or None
+    video_pixels = soup.find('div', {'data-spec': 'videopixels-hl'}).get_text() or None
+    ram_size = soup.find(class_='accent-expansion').get_text() or None
+    chipset = soup.find('div', {'data-spec': 'chipset-hl'}).get_text() or None
+    battery_size = soup.find(class_='accent-battery').get_text() or None
+    battery_type = soup.find('div', {'data-spec': 'battype-hl'}).get_text() or None
     quick_spec = [
         {'name': 'Display size', 'value': display_size},
         {'name': 'Display resolution', 'value': display_res},
