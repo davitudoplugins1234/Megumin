@@ -9,11 +9,11 @@ import asyncio
 proxys = {
     "PROXIES":
     [
-        "https://47.252.20.42:8058",
-        "https://47.88.11.3:3128",
-        "https://8.213.128.90:808",
-        "http://localhost:4030",
-        "http://localhost:8000"
+        "http://203.85.120.69:8080",
+        "http://50.172.23.10:80",
+        "http://50.206.111.90",
+        "http://localhost:4050",
+        "http://localhost:80001"
     ]
     
 }
@@ -28,8 +28,7 @@ async def getDataFromUrl(url):
     if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
             proxies = {
-                "http": proxy,
-                "https": proxy
+                "http": proxy
             }
             response = requests.get(url, headers=header.generate(), proxies=proxies, verify=False)
             if response.status_code == 200:
