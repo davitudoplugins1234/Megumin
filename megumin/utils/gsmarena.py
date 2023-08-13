@@ -26,7 +26,7 @@ def getDataFromUrl(url):
         headers=True
     )
     res = requests.get(url, headers=header.generate())
-    if "Too Many Requests" in res.text or res.status_code != 200:
+    if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
             proxies = {
                 "http": proxy
