@@ -67,12 +67,18 @@ def get_device(device):
     display_size = display_size_base.get_text() if display_size_base else "N/A"
     display_res_base = soup.find('div', {'data-spec': 'displayres-hl'})
     display_res = display_res_base.get_text() if display_res_base else "N/A"
-    camera_pixels = soup.find(class_='accent-camera').get_text() or None
-    video_pixels = soup.find('div', {'data-spec': 'videopixels-hl'}).get_text() or None
-    ram_size = soup.find(class_='accent-expansion').get_text() or None
-    chipset = soup.find('div', {'data-spec': 'chipset-hl'}).get_text() or None
-    battery_size = soup.find(class_='accent-battery').get_text() or None
-    battery_type = soup.find('div', {'data-spec': 'battype-hl'}).get_text() or None
+    camera_pixels_base = soup.find(class_='accent-camera')
+    camera_pixels = camera_pixels_base.get_text() if camera_pixels_base else "N/A"
+    video_pixels_base = soup.find('div', {'data-spec': 'videopixels-hl'})
+    video_pixels = video_pixels_base.get_text() if video_pixels_base else "N/A"
+    ram_size_base = soup.find(class_='accent-expansion')
+    ram_size = ram_size_base.get_text() if ram_size_base else "N/A"
+    chipset_base = soup.find('div', {'data-spec': 'chipset-hl'})
+    chipset = chipset_base.get_text() if chipset_base else "N/A"
+    battery_size_base = soup.find(class_='accent-battery')
+    battery_size = battery_size_base.get_text() if battery_size_base else "N/A"
+    battery_type_base = soup.find('div', {'data-spec': 'battype-hl'})
+    battery_type = battery_type_base.get_text() if battery_type_base else "N/A"
     quick_spec = [
         {'name': 'Display size', 'value': display_size},
         {'name': 'Display resolution', 'value': display_res},
@@ -83,13 +89,15 @@ def get_device(device):
         {'name': 'Battery size', 'value': battery_size},
         {'name': 'Battery type', 'value': battery_type},
     ]
-    name = soup.find(class_='specs-phone-name-title').get_text()
+    name_base = soup.find(class_='specs-phone-name-title')
+    name = name_base.get_text() if name_base else "N/A"
     img = soup.find('div', class_='specs-photo-main').find('img').get('src')
     spec_nodes = soup.find_all('table')
     detail_spec = []
     for el in spec_nodes:
         spec_list = []
-        category = el.find('th').get_text()
+        category_base = el.find('th')
+        category = category_base.get_text() if category_base else "N/A"
         spec_n = el.find_all('tr')
         for ele in spec_n:
             ttl = ele.find('td', class_='ttl')
