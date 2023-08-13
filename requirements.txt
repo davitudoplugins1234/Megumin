@@ -17,6 +17,7 @@ emoji-country-flag
 esprima
 filetype==1.2.0
 fake_headers
+Faker
 git+https://github.com/kkroening/ffmpeg-python.git
 geopy
 gallery-dl>=1.21.2
