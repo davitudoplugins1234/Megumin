@@ -1,9 +1,10 @@
-import httpx
 from bs4 import BeautifulSoup
 from fake_headers import Headers
 import json
 import uuid
 import asyncio
+
+from .tools import http
 
 proxys = {
     "PROXIES":
@@ -18,16 +19,21 @@ proxys = {
 }
 
 async def getDataFromUrl(url):
-    res = await http.get(url)
-    if (res).status_code != 200:
-            for proxy in proxys["PROXIES"]:
-                http_client = AsyncClient(proxies=proxy)
-                response = await http_client.get(url)
-                if response.status_code == 200:
-                    break
-            return response.text
-        else:  # noqa: RET505
-            return res.text
+    header = Headers(
+        browser="chrome",
+        os="win",
+        headers=True
+    )
+    res = await http.get(url, headers=header.generate())
+    if res.status_code != 200:
+        for proxy in proxys["PROXIES"]:
+            http_client = AsyncClient(proxies=proxy)
+            response = await http_client.get(url, headers=header.generate())
+            if response.status_code == 200:
+                break
+        return response.text
+    else:  # noqa: RET505
+        return res.text
     
 async def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
