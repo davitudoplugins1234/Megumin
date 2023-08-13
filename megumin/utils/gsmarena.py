@@ -1,17 +1,13 @@
 import httpx
 from bs4 import BeautifulSoup
 from fake_headers import Headers
-from faker import Faker
 import json
 import uuid
 import asyncio
 
 async def getDataFromUrl(url):
-    ip = Faker()
-    proxies_base = ip.ipv4()
-    proxies = {'http://': f"http://{proxies_base}", 'https://': f"http://{proxies_base}"}
     timeout = httpx.Timeout(30, pool=None)
-    http = httpx.AsyncClient(http2=True, timeout=timeout, proxies=proxies)
+    http = httpx.AsyncClient(http2=True, timeout=timeout)
     headeragent = Headers(
         browser="chrome",
         os="win",
