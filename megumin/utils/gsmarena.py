@@ -5,17 +5,29 @@ import json
 import uuid
 import asyncio
 
+proxys = {
+    "PROXIES":
+    [
+        "https://47.252.20.42:8058",
+        "https://47.88.11.3:3128",
+        "https://8.213.128.90:808",
+        "http://localhost:4030",
+        "http://localhost:8000"
+    ]
+    
+}
+
 async def getDataFromUrl(url):
-    timeout = httpx.Timeout(30, pool=None)
-    http = httpx.AsyncClient(http2=True, timeout=timeout)
-    headeragent = Headers(
-        browser="chrome",
-        os="win",
-        headers=True
-    )
-    headers = headeragent.generate()
-    response = await http.get(url, headers=headers)
-    return response.text
+    res = await http.get(url)
+    if (res).status_code != 200:
+            for proxy in proxys["PROXIES"]:
+                http_client = AsyncClient(proxies=proxy)
+                response = await http_client.get(url)
+                if response.status_code == 200:
+                    break
+            return response.text
+        else:  # noqa: RET505
+            return res.text
     
 async def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
