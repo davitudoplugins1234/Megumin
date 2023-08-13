@@ -25,11 +25,11 @@ async def getDataFromUrl(url):
         os="win",
         headers=True
     )
-    res = await http.get(url, headers=header.generate())
+    res = await http.get(url, headers=header.generate(), verify=False)
     if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
             http_client = AsyncClient(proxies=proxy)
-            response = await http_client.get(url, headers=header.generate())
+            response = await http_client.get(url, headers=header.generate(), verify=False)
             if response.status_code == 200:
                 break
         return response.text
