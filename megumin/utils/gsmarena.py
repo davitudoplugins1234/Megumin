@@ -1,3 +1,4 @@
+from httpx import AsyncClient
 from bs4 import BeautifulSoup
 from fake_headers import Headers
 import json
