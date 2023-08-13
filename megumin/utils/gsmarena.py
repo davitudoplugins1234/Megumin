@@ -1,21 +1,22 @@
-import requests
 from bs4 import BeautifulSoup
 from fake_headers import Headers
 import json
 import uuid
 import asyncio
 
-def getDataFromUrl(url):
+from megumin.utils import http
+
+async def getDataFromUrl(url):
     headeragent = Headers(
         browser="chrome",
         os="win",
         headers=True
     )
     headers = headeragent.generate()
-    response = requests.get(url, headers=headers)
+    response = await http.get(url, headers=headers)
     return response.text
     
-def search_device(searchValue):
+async def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
     html = getDataFromUrl(url)
 
@@ -37,7 +38,7 @@ def search_device(searchValue):
 
     return json
 
-def get_device(device):
+async def get_device(device):
     html = getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
     display_size = soup.find('span', {'data-spec': 'displaysize-hl'}).get_text()
