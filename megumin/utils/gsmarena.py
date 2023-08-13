@@ -9,7 +9,7 @@ import asyncio
 async def getDataFromUrl(url):
     ip = Faker()
     proxies_base = ip.ipv4()
-    proxies = {'http': proxies_base, 'https': proxies_base}
+    proxies = {'http': f"http://{proxies_base}", 'https': f"http://{proxies_base}"}
     timeout = httpx.Timeout(30, pool=None)
     http = httpx.AsyncClient(http2=True, timeout=timeout, proxies=proxies)
     headeragent = Headers(
