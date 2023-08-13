@@ -1,11 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
+from fake_headers import Headers
 import json
 import uuid
 import asyncio
 
 def getDataFromUrl(url):
-    response = requests.get(url)
+    headeragent = Headers(
+        browser="chrome",
+        os="win",
+        headers=True
+    )
+    headers = headeragent.generate()
+    response = requests.get(url, headers=headers)
     return response.text
     
 def search_device(searchValue):
