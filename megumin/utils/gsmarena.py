@@ -27,7 +27,7 @@ async def getDataFromUrl(url):
             proxies = {
                 "http": proxy
             }
-            response = requests.get(url, headers=header.generate(), proxies=proxies, verify=False)
+            response = requests.get(url, headers=header.generate(), proxies=proxies)
             if response.status_code == 200:
                 break
         return response.text
