@@ -1,10 +1,14 @@
-from httpx import AsyncClient
-from bs4 import BeautifulSoup
-from fake_headers import Headers
+
 import requests
 import json
 import uuid
 import asyncio
+
+from httpx import AsyncClient
+from bs4 import BeautifulSoup
+from fake_headers import Headers
+
+from megumin.utils import get_collection
 
 proxys = {
     "PROXIES":
@@ -21,21 +25,29 @@ proxys = {
     
 }
 
+DB = get_collection("REQUESTS_TEXT")
+
 def getDataFromUrl(url):
-    header = Headers(
-        browser="chrome",
-        os="win",
-        headers=True
-    )
-    res = requests.get(url, headers=header.generate())
-    if res.status_code != 200:
-        for proxy in proxys["PROXIES"]:
-            response = requests.get(url, headers=header.generate(), proxies={'http': proxy})
-            if response.status_code == 200:
-                break
-        return response.text
-    else:  # noqa: RET505
-        return res.text
+    find_db = await DB.find_one({"url": url})
+    if find_db:
+        return find_db["text"]
+    else:    
+        header = Headers(
+            browser="chrome",
+            os="win",
+            headers=True
+        )
+        res = requests.get(url, headers=header.generate())
+        if res.status_code != 200:
+            for proxy in proxys["PROXIES"]:
+                response = requests.get(url, headers=header.generate(), proxies={'http': proxy})
+                if response.status_code == 200:
+                    break
+            await DB.update_one({"url": url}, {"$set": {"text": response.text}}, upsert=True)
+            return response.text
+        else:  # noqa: RET505
+            await DB.update_one({"url": url}, {"$set": {"text": res.text}}, upsert=True)
+            return res.text
     
 def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
