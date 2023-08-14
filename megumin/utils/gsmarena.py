@@ -30,10 +30,7 @@ def getDataFromUrl(url):
     res = requests.get(url, headers=header.generate())
     if res.status_code != 200:
         for proxy in proxys["PROXIES"]:
-            proxies = {
-                "http": proxy
-            }
-            response = requests.get(url, headers=header.generate(), proxies=proxies)
+            response = requests.get(url, headers=header.generate(), proxies={'http': proxy})
             if response.status_code == 200:
                 break
         return response.text
