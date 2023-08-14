@@ -27,7 +27,7 @@ proxys = {
 
 DB = get_collection("REQUESTS_TEXT")
 
-def getDataFromUrl(url):
+async def getDataFromUrl(url):
     find_db = await DB.find_one({"url": url})
     if find_db:
         return find_db["text"]
@@ -49,7 +49,7 @@ def getDataFromUrl(url):
             await DB.update_one({"url": url}, {"$set": {"text": res.text}}, upsert=True)
             return res.text
     
-def search_device(searchValue):
+async def search_device(searchValue):
     url = f"https://gsmarena.com/results.php3?sQuickSearch=yes&sName={searchValue}"
     html = getDataFromUrl(url)
 
@@ -71,7 +71,7 @@ def search_device(searchValue):
 
     return json
 
-def get_device(device):
+async def get_device(device):
     html = getDataFromUrl(f'https://www.gsmarena.com/{device}.php')
     soup = BeautifulSoup(html, 'html.parser')
     display_size_base = soup.find('span', {'data-spec': 'displaysize-hl'})
