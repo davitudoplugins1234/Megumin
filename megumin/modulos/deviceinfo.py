@@ -16,7 +16,7 @@ async def deviceinfo(c: megux, m: Message):
     if input_str(m):
         name = input_str(m) 
         searchi = f"{name}".replace(" ", "+")
-        get_search_api = search_device(searchi)
+        get_search_api = await search_device(searchi)
         if not get_search_api == []:
             # Access the link from the first search result  
             name = get_search_api[0]["name"]
@@ -25,7 +25,7 @@ async def deviceinfo(c: megux, m: Message):
             link = f"https://www.gsmarena.com/{id}.php"
             description = get_search_api[0]["description"]
             try:
-                get_device_api = get_device(id)
+                get_device_api = await get_device(id)
                 name_cll = get_device_api["name"]
                 s1 = get_device_api['detailSpec'][0]['specifications'][0]['value']
                 s1_name = get_device_api['detailSpec'][0]['specifications'][0]['name']
