@@ -42,8 +42,8 @@ async def getDataFromUrl(url):
             for proxy in proxys["PROXIES"]:
                 response = requests.get(url, headers=header.generate(), proxies={'http': proxy})
                 if response.status_code == 200:
+                    await DB.update_one({"url": url}, {"$set": {"text": response.text}}, upsert=True)
                     break
-            await DB.update_one({"url": url}, {"$set": {"text": response.text}}, upsert=True)
             return response.text
         else:  # noqa: RET505
             await DB.update_one({"url": url}, {"$set": {"text": res.text}}, upsert=True)
