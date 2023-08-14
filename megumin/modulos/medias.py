@@ -24,7 +24,7 @@ from pyrogram.enums import ChatType, ChatAction
 
 
 from megumin import megux, Config 
-from megumin.utils import humanbytes, tld, csdl, cisdl, tsdl, tisdl, DownloadMedia, extract_info, http, admin_check, check_rights
+from megumin.utils import humanbytes, tld, csdl, cisdl, tsdl, tisdl, DownloadMedia, extract_info, http, admin_check, check_rights, add_user, find_user
 
 
 YOUTUBE_REGEX = re.compile(
@@ -41,6 +41,9 @@ MAX_FILESIZE = 2000000000
 @megux.on_message(filters.command("ytdl", Config.TRIGGER))
 async def ytdlcmd(c: megux, m: Message):
     user = m.from_user.id
+
+    if await find_user(user):
+        await add_user(user)
 
     if m.reply_to_message and m.reply_to_message.text:
         url = m.reply_to_message.text
