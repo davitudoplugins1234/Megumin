@@ -14,7 +14,7 @@ async def deviceinfo(c: megux, m: Message):
     if await is_disabled(m.chat.id, "deviceinfo"):
         return
     if input_str(m):
-        name = input_str(m) 
+        name = input_str(m).lower() 
         searchi = f"{name}".replace(" ", "+")
         get_search_api = await search_device(searchi)
         if not get_search_api == []:
