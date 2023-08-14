@@ -42,7 +42,7 @@ MAX_FILESIZE = 2000000000
 async def ytdlcmd(c: megux, m: Message):
     user = m.from_user.id
 
-    if await find_user(user):
+    if not await find_user(user):
         await add_user(user)
 
     if m.reply_to_message and m.reply_to_message.text:
