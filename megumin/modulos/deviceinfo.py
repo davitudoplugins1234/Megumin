@@ -29,7 +29,7 @@ async def deviceinfo(c: megux, m: Message):
                 try:
                     name_cll = get_device_api["name"]
                 except (IndexError, KeyError):
-                    name = "N/A"
+                    name_cll = "N/A"
                 try:
                     s1 = get_device_api['detailSpec'][0]['specifications'][0]['value']
                     s1_name = get_device_api['detailSpec'][0]['specifications'][0]['name']
