@@ -23,7 +23,7 @@ async def deviceinfo(c: megux, m: Message):
             img = get_search_api[0]["img"]
             id = get_search_api[0]["id"]
             link = f"https://www.gsmarena.com/{id}.php"
-            description = await tr.translate(get_search_api[0]["description"], "en", await tld(m.chat.id, "language")).text
+            description = await tr.translate(get_search_api[0]["description"], "en", await tld(m.chat.id, "language"))['text'][0]
             try:
                 get_device_api = await get_device(id)
                 name_cll = get_device_api["name"]
