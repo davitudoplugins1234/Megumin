@@ -39,7 +39,7 @@ async def deviceinfo(c: megux, m: Message):
                 s5_name = get_device_api['detailSpec'][2]['specifications'][3]['name']
                 await m.reply(f"<b>Photo Device</b>: {img}\n<b>Source URL</b>: https://www.gsmarena.com/{id}.php\n\n<b>- Device</b>:  <i>{name_cll}</i>\n<b>- {s1_name}</b>: <i>{s1}</i>\n<b>- {s2_name}</b>: <i>{s2}</i>\n<b>- {s3_name}</b>: <i>{s3}</i>\n<b>- {s4_name}</b>: <i>{s4}</i>\n<b>- {s5_name}</b>: <i>{s5}</i>\n\n<b>Description</b>: {description}", disable_web_page_preview=False)
             except Exception as err:
-                return await m.reply(f"Não consegui obter resultados sobre o aparelho. O gsmarena pode estar offline. <i>Erro</i>: <b>{err}</b>")
+                return await m.reply(f"Não consegui obter resultados sobre o aparelho. O gsmarena pode estar offline. <i>Erro</i>: <b>{err}</b> <b>Line</b>: {err.__traceback__.tb_lineno}")
         else:
             return await m.reply("Não encontrei este Dispositivo! :(")
     else:
