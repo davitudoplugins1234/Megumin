@@ -27,16 +27,16 @@ async def deviceinfo(c: megux, m: Message):
             try:
                 get_device_api = await get_device(id)
                 name_cll = get_device_api["name"]
-                s1 = get_device_api['detailSpec'][0]['specifications'][0]['value'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][0]['specifications'] else "N/A"
-                s1_name = get_device_api['detailSpec'][0]['specifications'][0]['name'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][0]['specifications'] else "N/A"
-                s2 = get_device_api['detailSpec'][1]['specifications'][0]['value'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][1]['specifications'] else "N/A"
-                s2_name = get_device_api['detailSpec'][1]['specifications'][0]['name'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][1]['specifications'] else "N/A"
-                s3 = get_device_api['detailSpec'][4]['specifications'][1]['value'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][4]['specifications'] else "N/A"
-                s3_name = get_device_api['detailSpec'][4]['specifications'][1]['name'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][4]['specifications'] else "N/A"
-                s4 = get_device_api['detailSpec'][3]['specifications'][1]['value'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][3]['specifications'] else "N/A"
-                s4_name = get_device_api['detailSpec'][3]['specifications'][1]['name'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][3]['specifications'] else "N/A"
-                s5 = get_device_api['detailSpec'][2]['specifications'][3]['value'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][2]['specifications'] else "N/A"
-                s5_name = get_device_api['detailSpec'][2]['specifications'][3]['name'] if get_device_api['detailSpec'] and get_device_api['detailSpec'][2]['specifications'] else "N/A"
+                s1 = get_device_api['detailSpec'][0]['specifications'][0]['value']
+                s1_name = get_device_api['detailSpec'][0]['specifications'][0]['name']
+                s2 = get_device_api['detailSpec'][1]['specifications'][0]['value']
+                s2_name = get_device_api['detailSpec'][1]['specifications'][0]['name']
+                s3 = get_device_api['detailSpec'][4]['specifications'][1]['value'] 
+                s3_name = get_device_api['detailSpec'][4]['specifications'][1]['name']
+                s4 = get_device_api['detailSpec'][3]['specifications'][1]['value']
+                s4_name = get_device_api['detailSpec'][3]['specifications'][1]['name'] 
+                s5 = get_device_api['detailSpec'][2]['specifications'][3]['value']
+                s5_name = get_device_api['detailSpec'][2]['specifications'][3]['name'] 
                 await m.reply(f"<b>Photo Device</b>: {img}\n<b>Source URL</b>: https://www.gsmarena.com/{id}.php\n\n<b>- Device</b>:  <i>{name_cll}</i>\n<b>- {s1_name}</b>: <i>{s1}</i>\n<b>- {s2_name}</b>: <i>{s2}</i>\n<b>- {s3_name}</b>: <i>{s3}</i>\n<b>- {s4_name}</b>: <i>{s4}</i>\n<b>- {s5_name}</b>: <i>{s5}</i>\n\n<b>Description</b>: {description}", disable_web_page_preview=False)
             except Exception as err:
                 return await m.reply(f"Não consegui obter resultados sobre o aparelho. O gsmarena pode estar offline. <i>Erro</i>: <b>{err}</b> <b>Line</b>: {err.__traceback__.tb_lineno}")
