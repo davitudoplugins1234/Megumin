@@ -67,6 +67,12 @@ async def deviceinfo(c: megux, m: Message):
                     DEVICE_TEXT += f"\n<b>- {s6_name}</b>: <i>{s6}</i>"
                 except (IndexError, KeyError):
                     DEVICE_TEXT += ""
+                try:
+                    s7 = get_device_api['detailSpec'][5]['specifications'][0]['value']
+                    s7_name = get_device_api['detailSpec'][5]['specifications'][0]['name']
+                    DEVICE_TEXT += f"\n<b>- {s7_name}</b>: <i>{s7}</i>"
+                except (IndexError, KeyError):
+                    DEVICE_TEXT += ""
                 DEVICE_TEXT += f"\n\n<b>- Description</b>: {description}"
                 await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
             except Exception as err:
