@@ -30,38 +30,38 @@ async def deviceinfo(c: megux, m: Message):
                     name_cll = get_device_api["name"]
                 except (IndexError, KeyError):
                     name_cll = "N/A"
-                DEVICE_TEXT = f"<b>Photo Device</b>: {img}\n<b>Source URL</b>: https://www.gsmarena.com/{id}.php\n\n<b>- Device</b>:  <i>{name_cll}</i>\n"
+                DEVICE_TEXT = f"<b>Photo Device</b>: {img}\n<b>Source URL</b>: https://www.gsmarena.com/{id}.php\n\n<b>- Device</b>:  <i>{name_cll}</i>"
                 try:
                     s1 = get_device_api['detailSpec'][0]['specifications'][0]['value']
                     s1_name = get_device_api['detailSpec'][0]['specifications'][0]['name']
-                    DEVICE_TEXT += f"<b>- {s1_name}</b>: <i>{s1}</i>\n"
+                    DEVICE_TEXT += f"\n<b>- {s1_name}</b>: <i>{s1}</i>"
                 except (IndexError, KeyError):
-                    continue
+                    DEVICE_TEXT += ""
                 try:
                     s2 = get_device_api['detailSpec'][1]['specifications'][0]['value']
                     s2_name = get_device_api['detailSpec'][1]['specifications'][0]['name']
-                    DEVICE_TEXT += f"<b>- {s2_name}</b>: <i>{s2}</i>\n"
+                    DEVICE_TEXT += f"\n<b>- {s2_name}</b>: <i>{s2}</i>"
                 except (IndexError, KeyError):
-                    continue
+                    DEVICE_TEXT += ""
                 try:
                     s3 = get_device_api['detailSpec'][4]['specifications'][1]['value'] 
                     s3_name = get_device_api['detailSpec'][4]['specifications'][1]['name']
-                    DEVICE_TEXT += f"<b>- {s3_name}</b>: <i>{s3}</i>\n"
+                    DEVICE_TEXT += f"\n<b>- {s3_name}</b>: <i>{s3}</i>"
                 except (IndexError, KeyError):
-                    continue
+                    DEVICE_TEXT += ""
                 try:
                     s4 = get_device_api['detailSpec'][3]['specifications'][1]['value']
                     s4_name = get_device_api['detailSpec'][3]['specifications'][1]['name']
-                    DEVICE_TEXT += f"<b>- {s4_name}</b>: <i>{s4}</i>\n"
+                    DEVICE_TEXT += f"\n<b>- {s4_name}</b>: <i>{s4}</i>"
                 except (IndexError, KeyError):
-                    continue
+                    DEVICE_TEXT += ""
                 try:
                     s5 = get_device_api['detailSpec'][2]['specifications'][3]['value']
                     s5_name = get_device_api['detailSpec'][2]['specifications'][3]['name']
-                    DEVICE_TEXT += f"<b>- {s5_name}</b>: <i>{s5}</i>\n\n"
+                    DEVICE_TEXT += f"\n<b>- {s5_name}</b>: <i>{s5}</i>"
                 except (IndexError, KeyError):
-                    continue
-                DEVICE_TEXT += f"<b>- Description</b>: {description}"
+                    DEVICE_TEXT += ""
+                DEVICE_TEXT += f"\n\n<b>- Description</b>: {description}"
                 await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
             except Exception as err:
                 return await m.reply(f"Não consegui obter resultados sobre o aparelho. O gsmarena pode estar offline. <i>Erro</i>: <b>{err}</b> <b>Line</b>: {err.__traceback__.tb_lineno}")
