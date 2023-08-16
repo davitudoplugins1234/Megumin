@@ -71,8 +71,11 @@ async def ytdlcmd(c: megux, m: Message):
     
     for f in yt["formats"]:
         if f["format_id"] == "140":
+            print(f)
             afsize = f["filesize"] or 0
         if f["ext"] == "mp4" and f["filesize"] is not None:
+            print()
+            print(f)
             vfsize = f["filesize"] or 0
             vformat = f["format_id"]
 
