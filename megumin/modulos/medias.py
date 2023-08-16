@@ -68,7 +68,7 @@ async def ytdlcmd(c: megux, m: Message):
             return
     else:
         yt = await extract_info(ydl, rege.group(), download=False)
-    print(yt["formats"])    
+        
     for f in yt["formats"]:
         if f["format_id"] == "140":
             print(f)
