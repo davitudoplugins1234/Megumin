@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
-from megumin.utils import disableable_dec, is_disabled, http, tld, search_device, get_device
+from megumin.utils import disableable_dec, is_disabled, http, tld, search_device, get_device, add_user, find_user
 from megumin.utils.decorators import input_str
 
 tr = Translator()
@@ -13,6 +13,10 @@ tr = Translator()
 async def deviceinfo(c: megux, m: Message):
     if await is_disabled(m.chat.id, "deviceinfo"):
         return
+
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
+    
     if input_str(m):
         name = input_str(m).lower() 
         searchi = f"{name}".replace(" ", "+")
