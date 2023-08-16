@@ -98,7 +98,7 @@ async def deviceinfo(c: megux, m: Message):
                 try:
                     s11 = get_device_api['detailSpec'][11]['specifications'][1]['value']
                     s11_name = get_device_api['detailSpec'][11]['specifications'][1]['name']
-                    DEVICE_TEXT += f"\n<b>- {s11_name}</b>: <i>{s10}</i>"
+                    DEVICE_TEXT += f"\n<b>- {s11_name}</b>: <i>{s11}</i>"
                 except (IndexError, KeyError):
                     DEVICE_TEXT += ""
                 DEVICE_TEXT += f"\n\n<b>- Description</b>: {description}"
