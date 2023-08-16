@@ -84,15 +84,21 @@ async def deviceinfo(c: megux, m: Message):
                 except (IndexError, KeyError):
                     DEVICE_TEXT += ""
                 try:
-                    s9 = get_device_api['detailSpec'][11]['specifications'][0]['value']
-                    s9_name = get_device_api['detailSpec'][11]['specifications'][0]['name']
+                    s9 = get_device_api['detailSpec'][7]['specifications'][2]['value']
+                    s9_name = get_device_api['detailSpec'][7]['specifications'][2]['name']
                     DEVICE_TEXT += f"\n<b>- {s9_name}</b>: <i>{s9}</i>"
                 except (IndexError, KeyError):
                     DEVICE_TEXT += ""
                 try:
-                    s10 = get_device_api['detailSpec'][11]['specifications'][1]['value']
-                    s10_name = get_device_api['detailSpec'][11]['specifications'][1]['name']
+                    s10 = get_device_api['detailSpec'][11]['specifications'][0]['value']
+                    s10_name = get_device_api['detailSpec'][11]['specifications'][0]['name']
                     DEVICE_TEXT += f"\n<b>- {s10_name}</b>: <i>{s10}</i>"
+                except (IndexError, KeyError):
+                    DEVICE_TEXT += ""
+                try:
+                    s11 = get_device_api['detailSpec'][11]['specifications'][1]['value']
+                    s11_name = get_device_api['detailSpec'][11]['specifications'][1]['name']
+                    DEVICE_TEXT += f"\n<b>- {s11_name}</b>: <i>{s10}</i>"
                 except (IndexError, KeyError):
                     DEVICE_TEXT += ""
                 DEVICE_TEXT += f"\n\n<b>- Description</b>: {description}"
