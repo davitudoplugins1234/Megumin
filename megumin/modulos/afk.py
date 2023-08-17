@@ -7,7 +7,7 @@ from pyrogram.errors import FloodWait, UserNotParticipant, BadRequest, ChatWrite
 from pyrogram.types import Message 
 
 from megumin import megux, Config
-from megumin.utils import get_collection, get_string, check_afk  
+from megumin.utils import get_collection, get_string, check_afk, find_user, add_user  
 from megumin.utils.decorators import input_str
 
 
@@ -15,6 +15,9 @@ from megumin.utils.decorators import input_str
 @megux.on_message(filters.command("afk", Config.TRIGGER))
 @megux.on_message(filters.regex(r"^(?i)brb(\s(?P<args>.+))?"))
 async def afk_cmd(_, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
+        
     x = input_str(m)
     REASON = get_collection("REASON_AFK")
     AFK_STATUS = get_collection("_AFK")
