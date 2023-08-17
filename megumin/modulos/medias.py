@@ -70,14 +70,12 @@ async def ytdlcmd(c: megux, m: Message):
         yt = await extract_info(ydl, rege.group(), download=False)
         
     for f in yt["formats"]:
-        if f["format_id"] == "140":
-            print(f)
-            afsize = f["filesize"] or 0
-        if f["ext"] == "mp4" and f["filesize"] is not None:
-            print()
-            print(f)
-            vfsize = f["filesize"] or 0
-            vformat = f["format_id"]
+        with contextlib.suppress(KeyError):
+            if f["format_id"] == "140":
+                afsize = f["filesize"] or 0
+            if f["ext"] == "mp4" and f["filesize"] is not None:
+                vfsize = f["filesize"] or 0
+                vformat = f["format_id"]
 
     keyboard = [
         [
