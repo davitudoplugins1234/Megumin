@@ -4,9 +4,12 @@ import os
 
 from megumin import Config
 
-from distutils.version import LooseVersion
-
 def check_requirements():
+    #Verifica se está no heroku
+
+    if Config.heroku_app is not None:
+        return True
+    
     # Verifica a quantidade de RAM
     ram = psutil.virtual_memory().total / (1024 ** 3)  # em GB
     if ram < Config.RAM_CHECK:
