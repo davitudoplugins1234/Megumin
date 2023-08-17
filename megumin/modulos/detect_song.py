@@ -12,6 +12,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
+from megumin.utils import find_user, add_user
 
 
 shazam = Shazam()
@@ -21,6 +22,8 @@ recognizer = sr.Recognizer()
 @megux.on_message(filters.command(["whichsong", "detectsong"], Config.TRIGGER))
 async def which_song(c: megux, message: Message):
     """ discover song using shazam"""
+    if not await find_user(message.from_user.id):
+        await add_user(message.from_user.id)
     replied = message.reply_to_message
     if not replied or not (replied.audio, replied.voice):
         await message.reply("<code>Reply audio needed.</code>")
@@ -56,6 +59,8 @@ async def which_song(c: megux, message: Message):
     
 @megux.on_message(filters.voice)
 async def transcriber(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     if m.voice:
         sent = await m.reply("<i>Fazendo Download do Áudio..</i>")
         try:
