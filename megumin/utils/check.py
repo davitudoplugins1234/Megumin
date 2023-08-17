@@ -17,17 +17,6 @@ def check_requirements():
     if freq < Config.CPU_MHZ_CHECK:
         return False
 
-    # Verifica a versão do sistema operacional
-    version = platform.release()
-    if 'microsoft' in platform.uname().release.lower():
-        # Executando no Ubuntu no WSL
-        if LooseVersion(version.split('-')[0]) < LooseVersion(Config.WSL_SYSTEM):
-            return False
-    else:
-        # Executando no Ubuntu normal
-        if LooseVersion(version.split('-')[0]) < LooseVersion(Config.MIN_SYSTEM):
-            return False
-
     # Verifica o espaço em disco
     disk = psutil.disk_usage('/').total / (1024 ** 3)  # em GB
     if disk < Config.STORAGE_CHECK:
