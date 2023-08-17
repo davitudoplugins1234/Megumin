@@ -15,7 +15,7 @@ from typing import Callable, List, Optional, Union
 
 
 from megumin import megux, Config
-from megumin.utils import get_collection, check_rights, check_bot_rights, is_admin, add_user_count, check_ban, check_antispam
+from megumin.utils import get_collection, check_rights, check_bot_rights, is_admin, add_user_count, check_ban, check_antispam, find_user, add_user
 
 
 
@@ -65,9 +65,12 @@ def button_parser(markdown_note):
 
 @megux.on_message(filters.command("setwelcome", Config.TRIGGER))
 async def set_welcome_message(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     db = get_collection(f"WELCOME_CHAT")
     if not await check_rights(m.chat.id, m.from_user.id, "can_change_info"):
         return
+   
     if len(m.text.split()) > 1:
         message = m.text.html.split(None, 1)[1]
         try:
@@ -108,6 +111,8 @@ async def set_welcome_message(c: megux, m: Message):
 
 @megux.on_message(filters.command(["welcome on", "welcome true"], Config.TRIGGER) & filters.group)
 async def enable_welcome_message(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     db = get_collection(f"WELCOME_STATUS")
     if not await check_rights(m.chat.id, m.from_user.id, "can_change_info"):
         return
@@ -117,6 +122,8 @@ async def enable_welcome_message(c: megux, m: Message):
     
 @megux.on_message(filters.command(["welcome off", "welcome false"], Config.TRIGGER) & filters.group)
 async def enable_welcome_message(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     db = get_collection(f"WELCOME_STATUS")
     if not await check_rights(m.chat.id, m.from_user.id, "can_change_info"):
         return
@@ -126,6 +133,8 @@ async def enable_welcome_message(c: megux, m: Message):
     
 @megux.on_message(filters.command("welcome", Config.TRIGGER) & filters.group)
 async def enable_welcome_message(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     if not await check_rights(m.chat.id, m.from_user.id, "can_change_info"):
         return
     await m.reply_text("Dê um argumento exemplo: /welcome on/off/true/false")
@@ -150,6 +159,9 @@ async def greet_new_members(c: megux, m: Message):
     #Check if is GBANNED
     if await check_antispam(m.chat.id):
         await check_ban(m, m.chat.id, user_id)
+
+    if not await find_user(user_id):
+        await add_user(user_id)
         
     mention = ", ".join(map(lambda a: a.mention, members))
     await add_user_count(m.chat.id, user_id)
@@ -217,6 +229,8 @@ async def greet_new_members(c: megux, m: Message):
     
 @megux.on_message(filters.command("getwelcome", Config.TRIGGER))
 async def get_welcome(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     db = get_collection(f"WELCOME_CHAT")
     resp = await db.find_one({"chat_id": m.chat.id})
     if resp:
@@ -229,6 +243,8 @@ async def get_welcome(c: megux, m: Message):
     
 @megux.on_message(filters.command("resetwelcome", Config.TRIGGER))
 async def rm_welcome(c: megux, m: Message):
+    if not await find_user(m.from_user.id):
+        await add_user(m.from_user.id)
     db = get_collection(f"WELCOME_CHAT")
     r = await db.find_one()
     if r:
