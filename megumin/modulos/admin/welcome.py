@@ -159,9 +159,6 @@ async def greet_new_members(c: megux, m: Message):
     #Check if is GBANNED
     if await check_antispam(m.chat.id):
         await check_ban(m, m.chat.id, user_id)
-
-    if not await find_user(user_id):
-        await add_user(user_id)
         
     mention = ", ".join(map(lambda a: a.mention, members))
     await add_user_count(m.chat.id, user_id)
@@ -195,6 +192,10 @@ async def greet_new_members(c: megux, m: Message):
                 chat_title=chat_title,
                 count=count,
             )
+
+            if not await find_user(user_id):
+                await add_user(user_id)
+            
             welcome, welcome_buttons = button_parser(welcome)
             if await captcha.find_one({"chat_id": m.chat.id, "status": True}):
                 if await is_admin(m.chat.id, user_id):
