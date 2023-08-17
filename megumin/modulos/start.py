@@ -16,13 +16,11 @@ from pyrogram.types import (
 
 from megumin import megux, version
 from megumin import START_TIME
-from megumin.utils import get_collection, time_formatter, get_string, add_lang
+from megumin.utils import get_collection, time_formatter, get_string, add_lang, find_user, add_user
 
 CHAT_LOGS = -1001556292785
 GROUPS = get_collection("GROUPS")
 USERS = get_collection("USERS")
-USERS_STARTED = get_collection("USERS_START")
-
 
 sm = psutil.swap_memory()
 uname = platform.uname() 
@@ -57,15 +55,8 @@ async def start_(c: megux, message: Message):
     msg = await get_string(message.chat.id or message.message.chat.id, "START")
     await message.reply_animation(gif, caption=msg, reply_markup=keyboard)
     user_id = message.from_user.id
-    fname = message.from_user.first_name
-    uname = message.from_user.username
-    user_start = f"#NEW_USER #LOGS\n\n**User:** {fname}\n**ID:** {message.from_user.id} <a href='tg://user?id={user_id}'>**Link**</a>"
-    found = await USERS_STARTED.find_one({"id_": user_id})
-    if not found:
-        return await asyncio.gather(
-            USERS_STARTED.insert_one({"id_": user_id, "user": fname}),
-            c.send_log(user_start, disable_notification=False, disable_web_page_preview=True))
-
+    if not await find_user(user_id):
+        await add_user(user_id)
 
     @megux.on_callback_query(filters.regex(pattern=r"^start_back$"))
     async def start_back(client: megux, cb: CallbackQuery):
