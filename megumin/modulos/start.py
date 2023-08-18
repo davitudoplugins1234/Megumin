@@ -14,7 +14,7 @@ from pyrogram.types import (
     Message,
 )
 
-from megumin import megux, Config version
+from megumin import megux, Config, version
 from megumin import START_TIME
 from megumin.utils import get_collection, time_formatter, get_string, add_lang, find_user, add_user
 
