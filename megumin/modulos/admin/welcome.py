@@ -193,8 +193,8 @@ async def greet_new_members(c: megux, m: Message):
                 count=count,
             )
 
-            if not await find_user(members.id):
-                await add_user(members.id)
+            if not await find_user(user_id):
+                await add_user(user_id)
             
             welcome, welcome_buttons = button_parser(welcome)
             if await captcha.find_one({"chat_id": m.chat.id, "status": True}):
