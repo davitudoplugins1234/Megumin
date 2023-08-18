@@ -9,7 +9,7 @@ DB_GROUP = get_collection("GROUPS")
 
 async def find_user(uid: int):
     USR = await DB_USER.find_one({"_id": uid})
-        return bool(USR)
+    return bool(USR)
 
 async def add_user(uid: int):
     try:
