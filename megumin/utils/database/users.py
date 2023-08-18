@@ -7,13 +7,13 @@ from megumin.utils import get_collection
 DB_USER = get_collection("USERS_START")
 DB_GROUP = get_collection("GROUPS")
 
-async def find_user(uid):
+async def find_user(uid: int):
     if await DB_USER.find_one({"_id": uid}):
         return True
     else:
         return False
 
-async def add_user(uid):
+async def add_user(uid: int):
     try:
         user = await megux.get_users(uid)
         user_start = f"#NEW_USER #LOGS\n\n<b>User:</b> {user.mention}\n<b>ID:</b> {user.id} <a href='tg://user?id={user.id}'>**Link**</a>"
