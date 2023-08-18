@@ -8,10 +8,8 @@ DB_USER = get_collection("USERS_START")
 DB_GROUP = get_collection("GROUPS")
 
 async def find_user(uid: int):
-    if await DB_USER.find_one({"_id": uid}):
-        return True
-    else:
-        return False
+    USR = await DB_USER.find_one({"_id": uid}):
+        return bool(USR)
 
 async def add_user(uid: int):
     try:
