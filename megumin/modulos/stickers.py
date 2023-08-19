@@ -8,7 +8,7 @@ import math
 import httpx
 
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 from pyrogram import filters, emoji, enums
@@ -216,7 +216,7 @@ async def kang_sticker(c: megux, m: Message):
             filename = await convert_video(filename)
             if filename is False:
                 return await prog_msg.edit_text("Error")
-        max_stickers = 49 if animated else 119
+        max_stickers = 50 if animated else 120
         while not packname_found:
             try:
                 stickerset = await c.invoke(
@@ -230,6 +230,7 @@ async def kang_sticker(c: megux, m: Message):
                     packname = (
                         f"{pack_prefix}_{packnum}_{m.from_user.id}_by_{c.me.username}"
                     )
+                    packname_found = False
                 else:
                     packname_found = True
             except StickersetInvalid:
