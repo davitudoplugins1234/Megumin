@@ -1,1 +1,1 @@
-megunin: python3 -m megumin
+WhiterKang: python3 -m megumin
