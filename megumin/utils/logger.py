@@ -2,7 +2,7 @@ __all__ = ["logging"]
 
 import logging
 
-from logging import RotatingFileHandler
+from logging.handlers import RotatingFileHandler
 
 # Logs de console
 
