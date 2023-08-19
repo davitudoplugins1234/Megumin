@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%d-%b-%y %H:%M:%S',
                     handlers=[
                         RotatingFileHandler(
-                            "logs.txt", maxBytes=20480, backupCount=10),
+                            "WhiterKang.log", maxBytes=20480, backupCount=10),
                         logging.StreamHandler()
                     ])
 
