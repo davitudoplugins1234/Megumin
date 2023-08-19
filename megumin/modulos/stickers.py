@@ -8,7 +8,7 @@ import math
 import httpx
 
 
-from PIL import Image, ImageOps
+from PIL import Image
 
 
 from pyrogram import filters, emoji, enums
