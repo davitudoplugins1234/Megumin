@@ -6,15 +6,13 @@
 # <https://www.github.com/DaviTudoPlugins1234/WhiterKang/blob/master/LICENSE/>.
 
 ## WhiterKang Decorators
-import logging
-
 from typing import List, Optional
 
 from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux
-from megumin.utils import is_disabled
+from megumin.utils import is_disabled, logging
 
 DISABLABLE_CMDS: List[str] = []
     
@@ -34,7 +32,7 @@ def disableable_dec(command):
             chat_id = message.chat.id
 
             check = await is_disabled(chat_id, command)
-            if check and not await filters.admin(c, message):
+            if check:
                 return
 
             return await func(c, message, *args, **kwargs)
