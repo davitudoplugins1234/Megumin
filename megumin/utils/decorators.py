@@ -11,8 +11,8 @@ from typing import List, Optional
 from pyrogram import filters
 from pyrogram.types import Message
 
-from megumin import megux
-from megumin.utils import is_disabled, logging
+from megumin import megux, logging
+from megumin.utils import is_disabled
 
 DISABLABLE_CMDS: List[str] = []
     
