@@ -216,7 +216,7 @@ async def kang_sticker(c: megux, m: Message):
             filename = await convert_video(filename)
             if filename is False:
                 return await prog_msg.edit_text("Error")
-        max_stickers = 50 if animated else 120
+        max_stickers = 49 if animated else 120
         while not packname_found:
             try:
                 stickerset = await c.invoke(
