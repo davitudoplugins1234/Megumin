@@ -1,6 +1,6 @@
 # Copyright (C) 2022 by fnixdev
 #
-from .utils import logging
+from . import logging
 from .bot import megux
 from pyrogram import idle
 from logging.handlers import RotatingFileHandler
@@ -9,20 +9,7 @@ from .utils.database.lang import load_language
 from .utils.database.antiflood import rflood
 from .utils.check import check_requirements
 
-
-logging.basicConfig(level=logging.INFO,
-                    format='[%(asctime)s - %(levelname)s] - %(name)s - %(message)s',
-                    datefmt='%d-%b-%y %H:%M:%S',
-                    handlers=[
-                        RotatingFileHandler(
-                            "WhiterKang.log", maxBytes=20480, backupCount=10),
-                        logging.StreamHandler()
-                    ])
-
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
-logging.getLogger("pyrogram.parser.html").setLevel(logging.ERROR)
-logging.getLogger("pyrogram.session.session").setLevel(logging.ERROR)
-
+# Start BOT
 
 async def main():
     if check_requirements():
