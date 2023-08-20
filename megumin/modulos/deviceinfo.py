@@ -61,7 +61,7 @@ async def deviceinfo(c: megux, m: Message):
                         for spec in specs:
                             name = spec['name']
                             value = spec['value']
-                            section_text += f"    <b>{name}:</b> <i>{value}</i>\n"
+                            section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
                     except (IndexError, KeyError):
