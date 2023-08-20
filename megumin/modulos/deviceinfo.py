@@ -14,7 +14,7 @@ CATEGORY_EMOJIS = {
     "Platform": "⚙️",
     "Memory": "💾",
     "Main Camera": "📷",
-    "Front Camera": "🤳",
+    "Selfie camera": "🤳",
     "Sound": "🔈",
     "Network": "🌐",
     "Extras": "✨",
