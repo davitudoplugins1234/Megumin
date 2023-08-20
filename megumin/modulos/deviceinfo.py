@@ -1,7 +1,3 @@
-Peço desculpas pela confusão. Aqui está a versão corrigida do código com os emojis em inglês:
-
-```python
-# Importações
 from gpytranslate import Translator
 from pyrogram import filters
 from pyrogram.types import Message
