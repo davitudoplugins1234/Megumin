@@ -51,12 +51,12 @@ async def deviceinfo(c: megux, m: Message):
                 base_device = f"<b>Photo Device:</b> <i>{img}</i>\n<b>Source URL:</b> <i>{link}</i>"
                 DEVICE_TEXT = f"{base_device}\n\n📌 <b><u>{name_cll}</b></u>\n📅 <b>Announced:</b> <i>{get_device_api['detailSpec'][1]['specifications'][0]['value']}</i>"
                 
-                for spec_index in range(15):
+                for spec_index in range(13):
                     try:
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
-                        section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
+                        section_text = f"\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
                         for spec in specs:
                             name = spec['name']
