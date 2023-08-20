@@ -38,7 +38,6 @@ async def deviceinfo(c: megux, m: Message):
         get_search_api = await search_device(searchi)
         
         if not get_search_api == []:
-            # Acessa o link do primeiro resultado de pesquisa
             name = get_search_api[0]["name"]
             img = get_search_api[0]["img"]
             id = get_search_api[0]["id"]
@@ -51,7 +50,7 @@ async def deviceinfo(c: megux, m: Message):
                 base_device = f"<b>Photo Device:</b> <i>{img}</i>\n<b>Source URL:</b> <i>{link}</i>"
                 DEVICE_TEXT = f"{base_device}\n\n📌 <b><u>{name_cll}</b></u>\n📅 <b>Announced:</b> <i>{get_device_api['detailSpec'][1]['specifications'][0]['value']}</i>"
                 
-                for spec_index in range(7):
+                for spec_index in range(8):
                     try:
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
