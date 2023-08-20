@@ -18,7 +18,9 @@ CATEGORY_EMOJIS = {
     "Sound": "🔈",
     "Network": "🌐",
     "Extras": "✨",
-    "Battery": "🔋"
+    "Battery": "🔋",
+    "Body": "🏗",
+    "Launch": "🚀"
 }
 
 @megux.on_message(filters.command(["deviceinfo", "d"], Config.TRIGGER))
