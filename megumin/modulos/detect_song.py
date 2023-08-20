@@ -12,7 +12,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
-from megumin.utils import find_user, add_user
+from megumin.utils import find_user, add_user, disableable_dec
 
 
 shazam = Shazam()
@@ -58,6 +58,7 @@ async def which_song(c: megux, message: Message):
 
     
 @megux.on_message(filters.voice)
+@disableable_dec("speech")
 async def transcriber(c: megux, m: Message):
     if not await find_user(m.from_user.id):
         await add_user(m.from_user.id)
