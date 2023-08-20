@@ -46,25 +46,25 @@ async def deviceinfo(c: megux, m: Message):
             try:
                 get_device_api = await get_device(id)
                 name_cll = get_device_api.get("name", "N/A")
-                base_device = f"Photo Device: {img}\nSource URL: {link}"
-                DEVICE_TEXT = f"📌 {name_cll}\n📅 Announced: {get_device_api['detailSpec'][1]['specifications'][0]['value']}\n\n{base_device}"
+                base_device = f"<b>Photo Device:</b> <i>{img}</i>\n<b>Source URL:</b> <i>{link}</i>"
+                DEVICE_TEXT = f"{base_device}\n\n📌 {name_cll}\n📅 Announced: {get_device_api['detailSpec'][1]['specifications'][0]['value']}"
                 
                 for spec_index in range(7):
                     try:
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
-                        section_text = f"\n\n<b><u>{translated_category} {category}</b></u>:\n"
+                        section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
                         for spec in specs:
                             name = spec['name']
                             value = spec['value']
-                            section_text += f"<b>{name}:</b> <b>{value}</b>\n"
+                            section_text += f"    <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
                     except (IndexError, KeyError):
                         pass
-                DEVICE_TEXT += f"\n\n<b>Description</b>: {description}"
+                DEVICE_TEXT += f"\n\n<b>Description</b>: <i>{description}</i>"
                 await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
                 
             except Exception as err:
