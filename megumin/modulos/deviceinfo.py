@@ -49,7 +49,7 @@ async def deviceinfo(c: megux, m: Message):
                 get_device_api = await get_device(id)
                 name_cll = get_device_api.get("name", "N/A")
                 base_device = f"<b>Photo Device:</b> <i>{img}</i>\n<b>Source URL:</b> <i>{link}</i>"
-                DEVICE_TEXT = f"{base_device}\n\n📌 {name_cll}\n📅 Announced: {get_device_api['detailSpec'][1]['specifications'][0]['value']}"
+                DEVICE_TEXT = f"{base_device}\n\n📌 <b><u>{name_cll}</b></u>\n📅 <b>Announced:</b> <i>{get_device_api['detailSpec'][1]['specifications'][0]['value']}</i>"
                 
                 for spec_index in range(7):
                     try:
