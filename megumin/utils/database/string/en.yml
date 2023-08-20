@@ -160,15 +160,15 @@ SIMI_API_OFF: "The api is showing unexpected errors!"
 
 
 #disable 
-COMMAND_NOW_DISABLED: "<i>Function {} Now Disabled!!!</i>"
-ALREADY_DISABLED_COMMAND: "<i>Function already disabled!</i>"
-NO_DISABLE_COMMAND: "<i>Which function do you want to disable?</i>"
+COMMAND_NOW_DISABLED: "<i>Command {} Now Disabled!!!</i>"
+ALREADY_DISABLED_COMMAND: "<i>Command already disabled!</i>"
+NO_DISABLE_COMMAND: "<i>Which command do you want to disable?</i>"
 
 
 #enable
-COMMAND_NOW_ENABLED: "<i>Function {} Now enabled!!!</i>"
-NO_DISABLED_COMMAND: "<i>Function not disabled!</i>"
-NO_ENABLE_COMMAND: "<i>Which function do you want to enable?</i>"
+COMMAND_NOW_ENABLED: "<i>Command {} Now enabled!!!</i>"
+NO_DISABLED_COMMAND: "<i>Command not disabled!</i>"
+NO_ENABLE_COMMAND: "<i>Which command do you want to enable?</i>"
 
 
 #antispam
