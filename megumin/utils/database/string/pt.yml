@@ -162,14 +162,14 @@ SIMI_API_OFF: "A api está apresentado erros inesperados!"
 
 
 #disable
-COMMAND_NOW_DISABLED: "<i>Comando {} Agora Desativado!!!</i>"
-ALREADY_DISABLED_COMMAND: "<i>Comando já desativado!</i>"
-NO_DISABLE_COMMAND: "<i>Qual comando você deseja desativar?</i>"
+COMMAND_NOW_DISABLED: "<i>Função {} Agora Desativada!!!</i>"
+ALREADY_DISABLED_COMMAND: "<i>Função já desativada!</i>"
+NO_DISABLE_COMMAND: "<i>Qual função você deseja desativar?</i>"
 
 #enable
-COMMAND_NOW_ENABLED: "<i>Comando {} Agora Ativado!!!</i>"
-NO_DISABLED_COMMAND: "<i>Comando não desativado!</i>"
-NO_ENABLE_COMMAND: "<i>Qual comando você deseja ativar?</i>"
+COMMAND_NOW_ENABLED: "<i>Função {} Agora Ativada!!!</i>"
+NO_DISABLED_COMMAND: "<i>Função não desativada!</i>"
+NO_ENABLE_COMMAND: "<i>Qual função você deseja ativar?</i>"
 
 
 #antispam
