@@ -10,13 +10,13 @@ tr = Translator()
 
 # Mapeamento de emojis para categorias em inglês
 CATEGORY_EMOJIS = {
-    "Screen": "📱",
+    "Display": "📱",
     "Platform": "⚙️",
     "Memory": "💾",
-    "Cameras": "📷",
+    "Main Camera": "📷",
     "Front Camera": "🤳",
     "Sound": "🔈",
-    "Connectivity": "🌐",
+    "Network": "🌐",
     "Extras": "✨",
     "Battery": "🔋"
 }
@@ -54,17 +54,17 @@ async def deviceinfo(c: megux, m: Message):
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
-                        section_text = f"\n\n{translated_category} {category}:\n"
+                        section_text = f"\n\n<b><u>{translated_category} {category}</b></u>:\n"
                         
                         for spec in specs:
                             name = spec['name']
                             value = spec['value']
-                            section_text += f"{name}: {value}\n"
+                            section_text += f"<b>{name}:</b> <b>{value}</b>\n"
                         
                         DEVICE_TEXT += section_text
                     except (IndexError, KeyError):
                         pass
-                DEVICE_TEXT += "\n\n<b>Description</b>: {description}"
+                DEVICE_TEXT += f"\n\n<b>Description</b>: {description}"
                 await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
                 
             except Exception as err:
