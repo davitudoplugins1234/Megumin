@@ -1,4 +1,6 @@
 import requests
+import os
+from PIL import Image, ImageDraw, ImageFont
 from gpytranslate import Translator
 from pyrogram import filters
 from pyrogram.types import Message
@@ -29,7 +31,6 @@ CATEGORY_EMOJIS = {
 
 
 DEVICE_LIST = "https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_device.json"
-
 
 @megux.on_message(filters.command(["deviceinfo", "d"], Config.TRIGGER))
 @disableable_dec("deviceinfo")
@@ -84,9 +85,15 @@ async def deviceinfo(c: megux, m: Message):
                 #Create Description
                 DEVICE_TEXT += f"\n\n<b>Description</b>: <i>{description}</i>"
                 
-                #Send Message
-                await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
-            
+                try:
+                    await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
+                except Exception as err:
+                    # Create the image
+                    image = create_image(DEVICE_TEXT, img)
+                    
+                    # Send the image
+                    await c.send_photo(chat_id=m.chat.id, photo=image, caption=DEVICE_TEXT)
+                    
             except Exception as err:
                 return await m.reply(f"Couldn't retrieve device details. The GSM Arena website might be offline. <i>Error</i>: <b>{err}</b>\n<b>Line</b>: {err.__traceback__.tb_lineno}")
         
@@ -94,3 +101,29 @@ async def deviceinfo(c: megux, m: Message):
             return await m.reply("Couldn't find this device! :(")
     else:
         return await m.reply("I can't guess the device!! woobs!!")
+
+
+def create_image(text, img_url):
+    width, height = 1920, 1080
+    image = Image.new("RGBA", (width, height), "black")
+    draw = ImageDraw.Draw(image)
+    
+    font = ImageFont.load_default()  # You can specify your own font if needed
+    
+    text_width, text_height = draw.textsize(text, font=font)
+    draw.text(((width - text_width) // 2, 50), text, font=font, fill="white")
+    
+    # Load the device image
+    device_image = Image.open(requests.get(img_url, stream=True).raw)
+    
+    # Resize the device image to fit the available space
+    max_image_height = height - text_height - 100
+    if device_image.height > max_image_height:
+        ratio = max_image_height / device_image.height
+        new_width = int(device_image.width * ratio)
+        device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
+    
+    # Paste the device image below the text
+    image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
+    
+    return image
