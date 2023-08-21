@@ -22,7 +22,8 @@ CATEGORY_EMOJIS = {
     "Launch": "🚀",
     "Comms": "📡",
     "Features": "✨",
-    "Misc": "📦"
+    "Misc": "📦",
+    "Tests": "ℹ️"
 }
 
 @megux.on_message(filters.command(["deviceinfo", "d"], Config.TRIGGER))
@@ -54,14 +55,14 @@ async def deviceinfo(c: megux, m: Message):
                 
                 for spec_index in range(15):
                     try:
-                        category = get_device_api['detailSpec'][spec_index]['category']
+                        category = get_device_api['detailSpec'][spec_index]['category'].replace("N/A", "")
                         translated_category = CATEGORY_EMOJIS.get(category, '')
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
                         section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
                         for spec in specs:
-                            name = spec['name']
-                            value = spec['value']
+                            name = spec['name'].replace("N/A", "")
+                            value = spec['value'].replace("N/A", "")
                             section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
