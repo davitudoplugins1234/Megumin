@@ -1,5 +1,4 @@
 import requests
-import os
 from PIL import Image, ImageDraw, ImageFont
 from gpytranslate import Translator
 from pyrogram import filters
@@ -28,7 +27,6 @@ CATEGORY_EMOJIS = {
     "Misc": "📦",
     "Tests": "ℹ️"
 }
-
 
 DEVICE_LIST = "https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_device.json"
 
