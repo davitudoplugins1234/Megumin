@@ -55,14 +55,14 @@ async def deviceinfo(c: megux, m: Message):
                 
                 for spec_index in range(15):
                     try:
-                        category = get_device_api['detailSpec'][spec_index]['category'].replace("N/A", "")
+                        category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
                         section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
                         for spec in specs:
-                            name = spec['name'].replace("N/A", "")
-                            value = spec['value'].replace("N/A", "")
+                            name = spec['name']
+                            value = spec['value']
                             section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
