@@ -81,7 +81,11 @@ async def deviceinfo(c: megux, m: Message):
                     except (IndexError, KeyError):
                         pass
                 DEVICE_TEXT += f"\n\n<b>Description</b>: <i>{description}</i>"
-                await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
+                if len(DEVICE_TEXT) >= 4096:
+                    ftext = DEVICE_TEXT[:4092] + "..."
+                else:
+                    ftext = DEVICE_TEXT
+                await m.reply(ftext, disable_web_page_preview=False)
                 
             except Exception as err:
                 return await m.reply(f"Couldn't retrieve device details. The GSM Arena website might be offline. <i>Error</i>: <b>{err}</b>\n<b>Line</b>: {err.__traceback__.tb_lineno}")
