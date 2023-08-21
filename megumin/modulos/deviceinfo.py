@@ -83,8 +83,11 @@ async def deviceinfo(c: megux, m: Message):
                 #Create Description
                 DEVICE_TEXT += f"\n\n<b>Description</b>: <i>{description}</i>"
                 #Send Message
-                await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
-                
+                try:
+                    await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
+                except Exception:
+                    DEVICE_RESUMITED = "The message has been compulsorily summarized.\n" + section_text + f"\n\n<b>Description</b>: {description}"
+                    await m.reply(DEVICE_RESUMITED)
             except Exception as err:
                 return await m.reply(f"Couldn't retrieve device details. The GSM Arena website might be offline. <i>Error</i>: <b>{err}</b>\n<b>Line</b>: {err.__traceback__.tb_lineno}")
         
