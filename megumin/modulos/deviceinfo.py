@@ -80,6 +80,8 @@ async def deviceinfo(c: megux, m: Message):
                         DEVICE_TEXT += section_text
                     except (IndexError, KeyError):
                         pass
+                #Create Description
+                DEVICE_TEXT += f"\n\n<b>Description</b>: <i>{description}</i>"
                 #Send Message
                 await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
                 
