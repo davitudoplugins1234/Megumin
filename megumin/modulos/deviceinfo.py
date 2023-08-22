@@ -109,8 +109,14 @@ def create_image(text, img_url):
     
     font = ImageFont.load_default()  # You can specify your own font if needed
     
-    text_width, text_height = draw.textsize(text, font=font)
-    draw.text(((width - text_width) // 2, 50), text, font=font, fill="white")
+    # Split the text into lines to handle emojis and special characters
+    lines = text.split('\n')
+    text_height = 50
+    
+    for line in lines:
+        line_width, line_height = draw.textsize(line, font=font)
+        draw.text(((width - line_width) // 2, text_height), line, font=font, fill="white")
+        text_height += line_height + 5
     
     # Load the device image
     response = requests.get(img_url, stream=True)
@@ -130,7 +136,7 @@ def create_image(text, img_url):
     else:
         # If unable to fetch the image, display a placeholder
         error_message = "Image not available"
-        text_width, text_height = draw.textsize(error_message, font=font)
-        draw.text(((width - text_width) // 2, (height - text_height) // 2), error_message, font=font, fill="white")
+        error_width, error_height = draw.textsize(error_message, font=font)
+        draw.text(((width - error_width) // 2, (height - error_height) // 2), error_message, font=font, fill="white")
     
     return image
