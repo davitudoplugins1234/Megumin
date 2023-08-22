@@ -128,4 +128,4 @@ def create_image(text, img_url):
         # If unable to fetch the image, display a placeholder
         error_message = "Image not available"
         text_width, text_height = draw.textsize(error_message, font=font)
-         draw.text(((width - text_width) // 2, (height - text_height) // 2), error_message, font=font, fill="white")
+        draw.text(((width - text_width) // 2, (height - text_height) // 2), error_message, font=font, fill="white")
