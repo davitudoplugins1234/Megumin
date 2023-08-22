@@ -1,4 +1,6 @@
 import requests
+import io
+
 from PIL import Image, ImageDraw, ImageFont
 from gpytranslate import Translator
 from pyrogram import filters
@@ -113,19 +115,22 @@ def create_image(text, img_url):
     # Load the device image
     response = requests.get(img_url, stream=True)
     if response.status_code == 200:
-        device_image = Image.open(response.raw).convert("RGBA")  # Convert to RGBA for compatibility
-    
-        # Resize the device image to fit the available space
-        max_image_height = height - text_height - 100
-        if device_image.height > max_image_height:
-            ratio = max_image_height / device_image.height
-            new_width = int(device_image.width * ratio)
-            device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
-    
-        # Paste the device image below the text
-        image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
+        with io.BytesIO(response.content) as img_stream:
+            device_image = Image.open(img_stream).convert("RGBA")  # Convert to RGBA for compatibility
+            
+            # Resize the device image to fit the available space
+            max_image_height = height - text_height - 100
+            if device_image.height > max_image_height:
+                ratio = max_image_height / device_image.height
+                new_width = int(device_image.width * ratio)
+                device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
+            
+            # Paste the device image below the text
+            image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
     else:
         # If unable to fetch the image, display a placeholder
         error_message = "Image not available"
         text_width, text_height = draw.textsize(error_message, font=font)
         draw.text(((width - text_width) // 2, (height - text_height) // 2), error_message, font=font, fill="white")
+    
+    return image
