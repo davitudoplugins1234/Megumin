@@ -111,16 +111,23 @@ def create_image(text, img_url):
     draw.text(((width - text_width) // 2, 50), text, font=font, fill="white")
     
     # Load the device image
-    device_image = Image.open(requests.get(img_url, stream=True).raw)
-    
-    # Resize the device image to fit the available space
-    max_image_height = height - text_height - 100
-    if device_image.height > max_image_height:
-        ratio = max_image_height / device_image.height
-        new_width = int(device_image.width * ratio)
-        device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
-    
-    # Paste the device image below the text
-    image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
+    response = requests.get(img_url, stream=True)
+    if response.status_code == 200:
+        device_image = Image.open(response.raw)
+        
+        # Resize the device image to fit the available space
+        max_image_height = height - text_height - 100
+        if device_image.height > max_image_height:
+            ratio = max_image_height / device_image.height
+            new_width = int(device_image.width * ratio)
+            device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
+        
+        # Paste the device image below the text
+        image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
+    else:
+        # If unable to fetch the image, display a placeholder
+        error_message = "Image not available"
+        text_width, text_height = draw.textsize(error_message, font=font)
+        draw.text(((width - text_width) // 2, (height - text_height) // 2), error_message, font=font, fill="white")
     
     return image
