@@ -44,12 +44,11 @@ async def deviceinfo(c: megux, m: Message):
     if input_str(m):
         name = input_str(m).lower()
         if name in list(getlist):
-            searchi = getlist.get(name)[0]['name'].replace(" ", "+")
+            searchi = getlist.get(name)[0]['model'].replace(" ", "+")
         else:
             searchi = f"{name}".replace(" ", "+")
             
         get_search_api = await search_device(searchi)
-        print(searchi)
         
         if not get_search_api == []:
             name = get_search_api[0]["name"]
