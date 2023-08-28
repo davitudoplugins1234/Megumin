@@ -87,11 +87,11 @@ async def deviceinfo(c: megux, m: Message):
                 try:
                     await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
                 except Exception as err:
-                    # Create the image
-                    image = create_image(DEVICE_TEXT, img)
+                    caption_chunks = [DEVICE_TEXT[i:i + 1024] for i in range(0, len(DEVICE_TEXT), 1024)]
+                    await c.send_photo(chat_id=m.chat.id, photo=img, caption=caption_chunks[0])
+                    for chunk in caption_chunks[1:]:
+                        await c.send_message(chat_id=m.chat.id, text=chunk)
                     
-                    # Send the image
-                    await c.send_photo(chat_id=m.chat.id, photo=image, caption=DEVICE_TEXT)
                     
             except Exception as err:
                 return await m.reply(f"Couldn't retrieve device details. The GSM Arena website might be offline. <i>Error</i>: <b>{err}</b>\n<b>Line</b>: {err.__traceback__.tb_lineno}")
