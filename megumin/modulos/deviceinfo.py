@@ -87,10 +87,16 @@ async def deviceinfo(c: megux, m: Message):
                 try:
                     await m.reply(DEVICE_TEXT, disable_web_page_preview=False)
                 except Exception as err:
-                    caption_chunks = [DEVICE_TEXT[i:i + 1024] for i in range(0, len(DEVICE_TEXT), 1024)]
-                    await c.send_photo(chat_id=m.chat.id, photo=img, caption=caption_chunks[0])
-                    for chunk in caption_chunks[1:]:
-                        await c.send_message(chat_id=m.chat.id, text=chunk)
+                    # Send the image with the first part of the caption
+                    caption_part = DEVICE_TEXT[:1024]
+                    caption_rest = DEVICE_TEXT[1024:]
+
+                    await c.send_photo(chat_id=m.chat.id, photo=img, caption=caption_part)
+
+                # Split the remaining caption and send as regular text messages
+                message_chunks = [caption_rest[i:i + 4096] for i in range(0, len(caption_rest), 4096)]
+                for chunk in message_chunks:
+                    await c.send_message(chat_id=m.chat.id, text=chunk)
                     
                     
             except Exception as err:
