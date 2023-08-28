@@ -1,7 +1,6 @@
 import requests
 import io
 
-from PIL import Image, ImageDraw, ImageFont
 from gpytranslate import Translator
 from pyrogram import filters
 from pyrogram.types import Message
@@ -93,10 +92,10 @@ async def deviceinfo(c: megux, m: Message):
 
                     await c.send_photo(chat_id=m.chat.id, photo=img, caption=caption_part)
 
-                # Split the remaining caption and send as regular text messages
-                message_chunks = [caption_rest[i:i + 4096] for i in range(0, len(caption_rest), 4096)]
-                for chunk in message_chunks:
-                    await c.send_message(chat_id=m.chat.id, text=chunk)
+                    # Split the remaining caption and send as regular text messages
+                    message_chunks = [caption_rest[i:i + 4096] for i in range(0, len(caption_rest), 4096)]
+                    for chunk in message_chunks:
+                        await c.send_message(chat_id=m.chat.id, text=chunk)
                     
                     
             except Exception as err:
@@ -106,43 +105,3 @@ async def deviceinfo(c: megux, m: Message):
             return await m.reply("Couldn't find this device! :(")
     else:
         return await m.reply("I can't guess the device!! woobs!!")
-
-
-def create_image(text, img_url):
-    width, height = 1920, 1080
-    image = Image.new("RGBA", (width, height), "black")
-    draw = ImageDraw.Draw(image)
-    
-    font = ImageFont.load_default()  # You can specify your own font if needed
-    
-    # Split the text into lines to handle emojis and special characters
-    lines = text.split('\n')
-    text_height = 50
-    
-    for line in lines:
-        line_width, line_height = draw.textsize(line, font=font)
-        draw.text(((width - line_width) // 2, text_height), line, font=font, fill="white")
-        text_height += line_height + 5
-    
-    # Load the device image
-    response = requests.get(img_url, stream=True)
-    if response.status_code == 200:
-        with io.BytesIO(response.content) as img_stream:
-            device_image = Image.open(img_stream).convert("RGBA")  # Convert to RGBA for compatibility
-            
-            # Resize the device image to fit the available space
-            max_image_height = height - text_height - 100
-            if device_image.height > max_image_height:
-                ratio = max_image_height / device_image.height
-                new_width = int(device_image.width * ratio)
-                device_image = device_image.resize((new_width, max_image_height), Image.ANTIALIAS)
-            
-            # Paste the device image below the text
-            image.paste(device_image, ((width - device_image.width) // 2, text_height + 50))
-    else:
-        # If unable to fetch the image, display a placeholder
-        error_message = "Image not available"
-        error_width, error_height = draw.textsize(error_message, font=font)
-        draw.text(((width - error_width) // 2, (height - error_height) // 2), error_message, font=font, fill="white")
-    
-    return image
