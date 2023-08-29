@@ -7,7 +7,7 @@ from pyrogram.errors import FloodWait, UserNotParticipant, BadRequest, ChatWrite
 from pyrogram.types import Message 
 
 from megumin import megux, Config
-from megumin.utils import get_collection, get_string, check_afk, find_user, add_user  
+from megumin.utils import get_collection, get_string, check_afk, find_user, add_user, add_afk, add_afk_reason, find_reason_afk 
 from megumin.utils.decorators import input_str
 
 
@@ -19,27 +19,19 @@ async def afk_cmd(_, m: Message):
         await add_user(m.from_user.id)
         
     x = input_str(m)
-    REASON = get_collection("REASON_AFK")
-    AFK_STATUS = get_collection("_AFK")
     AFK_COUNT = get_collection("AFK_COUNT")
     if input_str(m):
         await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
-        await AFK_STATUS.delete_one({"user_id": m.from_user.id, "_afk": "on"})
-        await REASON.delete_one({"user_id": m.from_user.id}) 
+        await add_afk_reason(m.from_user.id, x)
         await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
-        await AFK_STATUS.insert_one({"user_id": m.from_user.id, "_afk": "on"})
-        await REASON.insert_one({"user_id": m.from_user.id, "_reason": x})
-        res = await REASON.find_one({"user_id": m.from_user.id})
-        r = res["_reason"]     
+        r = await find_reason_afk(m.from_user.id)
         await m.reply((await get_string(m.chat.id, "AFK_IS_NOW_REASON")).format(m.from_user.first_name, r))
         await m.stop_propagation()
     else:
         try:
-            await AFK_STATUS.delete_one({"user_id": m.from_user.id, "status": "on"})
-            await REASON.delete_one({"user_id": m.from_user.id}) 
+            await add_afk(m.from_user.id)
             await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
             await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
-            await AFK_STATUS.insert_one({"user_id": m.from_user.id, "_afk": "on"})
             await m.reply((await get_string(m.chat.id, "AFK_IS_NOW")).format(m.from_user.first_name))
         except AttributeError as err: 
             await megux.send_log(err)
