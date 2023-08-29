@@ -8,6 +8,13 @@ async def add_afk_reason(user_id: int, reason: str):
 async def add_afk(user_id: int):
     await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "on"}}, upsert=True)
 
+async def del_afk(user_id: int):
+    await AFK.delete_many({"user_id": user_id})
+
+async def is_afk(user_id: int):
+    res = await AFK.find_one({"user_id": user_id, "_afk": "on"})
+    return bool(res)
+
 async def find_reason_afk(user_id: int):
     res = await AFK.find_one({"user_id": user_id, "_afk": "on"})
     if "_reason" in res:
