@@ -2,14 +2,19 @@ import asyncio
 import logging
 
 from megumin import megux
-from megumin.utils import get_collection
+from megumin.utils import get_collection, logging
 
 DB_USER = get_collection("USERS_START")
 DB_GROUP = get_collection("GROUPS")
 
 async def find_user(uid: int):
-    USR = await DB_USER.find_one({"_id": uid})
-    return bool(USR)
+    try:
+        user = await megux.get_users(uid)
+        USR = await DB_USER.find_one({"_id": user.id})
+        return bool(USR)
+    except Exception as e:
+        logging.error(f"An Error Ocurred: {e}")
+        return False
 
 async def add_user(uid: int):
     try:
