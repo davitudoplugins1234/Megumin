@@ -56,8 +56,8 @@ async def rem_afk(c: megux, m: Message):
     except AttributeError:
         return
 
-    if user and await AFK_STATUS.find_one({"user_id": user.id, "_afk": "on"}):
-        await AFK_STATUS.delete_one({"user_id": user.id, "_afk": "on"})
+    if user and await is_afk(user.id):
+        await del_afk(user.id)
         await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
         try:
             return await m.reply_text(
