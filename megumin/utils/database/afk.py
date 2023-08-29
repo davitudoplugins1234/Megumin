@@ -10,6 +10,7 @@ async def add_afk(user_id: int):
 
 async def del_afk(user_id: int):
     await AFK.delete_many({"user_id": user_id})
+    await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "off"}}, upsert=True)
 
 async def is_afk(user_id: int):
     res = await AFK.find_one({"user_id": user_id, "_afk": "on"})
