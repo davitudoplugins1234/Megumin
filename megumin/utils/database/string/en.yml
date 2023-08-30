@@ -95,8 +95,8 @@ ERROR_PRINT_DNS: "<b>Cannot access this site</b>\n\n\n<i>Connection to {} was re
 
 #AFK
 AFK_IS_NOW_REASON: "{} is now AFK!\nSaid it is: {}"
-IS_AFK: "{} is AFK!\n\nLast seen ago: {}"
-IS_AFK_REASON: "{} is AFK! Said it is: {}\n\nLast seen ago: {}"
+IS_AFK: "{} is AFK!\nLast seen <code>{}</code> ago"
+IS_AFK_REASON: "{} is AFK! Said it is: {}\nLast seen <code>{}</code> ago"
 AFK_IS_NOW: "{} is now AFK!"
 AFK_LOOGER: "{} is no longer AFK!"
 
