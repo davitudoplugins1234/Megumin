@@ -99,7 +99,7 @@ ERROR_PRINT_DNS: "<b>Não é possível acessar esse site</b>\n\n\n<i>A conexão 
 AFK_IS_NOW_REASON: "{} agora está AFK!\nDisse que está: {}"
 AFK_IS_NOW: "{} agora está AFK!"
 IS_AFK: "{} está AFK!\n<b>Visto pela última vez à</b> <i>{}</i> <b>atrás</b>"
-IS_AFK_REASON: "{} está AFK!\nDisse que está: {}\n<b>Visto pela última vez à</b> <i>{}</i> <b>atrás</b>"
+IS_AFK_REASON: "{} está AFK!\nDisse que está: {}\n\n<b>Visto pela última vez à</b> <i>{}</i> <b>atrás</b>"
 AFK_LOOGER: "{} não está mais AFK!"
 
 #pin
