@@ -1,4 +1,5 @@
 import re
+import datetime
 import asyncio 
 
 from pyrogram import filters
@@ -20,6 +21,7 @@ async def afk_cmd(_, m: Message):
         
     x = input_str(m)
     AFK_COUNT = get_collection("AFK_COUNT")
+    time = datetime.datetime.now()
     if input_str(m):
         await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
         await add_afk_reason(m.from_user.id, x)
