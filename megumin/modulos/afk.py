@@ -5,7 +5,9 @@ import asyncio
 from pyrogram import filters
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import FloodWait, UserNotParticipant, BadRequest, ChatWriteForbidden
-from pyrogram.types import Message 
+from pyrogram.types import Message
+
+from datetime import datetime
 
 from megumin import megux, Config
 from megumin.utils import get_collection, get_string, check_afk, find_user, add_user, add_afk, add_afk_reason, find_reason_afk, is_afk, del_afk 
@@ -24,14 +26,14 @@ async def afk_cmd(_, m: Message):
     time = datetime.datetime.now()
     if input_str(m):
         await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
-        await add_afk_reason(m.from_user.id, x)
+        await add_afk_reason(m.from_user.id, x, datetime.now().timestamp())
         await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
         r = await find_reason_afk(m.from_user.id)
         await m.reply((await get_string(m.chat.id, "AFK_IS_NOW_REASON")).format(m.from_user.first_name, r))
         await m.stop_propagation()
     else:
         try:
-            await add_afk(m.from_user.id)
+            await add_afk(m.from_user.id, datetime.now().timestamp())
             await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
             await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
             await m.reply((await get_string(m.chat.id, "AFK_IS_NOW")).format(m.from_user.first_name))
