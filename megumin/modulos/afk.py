@@ -23,17 +23,17 @@ async def afk_cmd(_, m: Message):
         
     x = input_str(m)
     AFK_COUNT = get_collection("AFK_COUNT")
-    time = datetime.datetime.now()
+    time = datetime.now().timestamp()
     if input_str(m):
         await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
-        await add_afk_reason(m.from_user.id, x, datetime.now().timestamp())
+        await add_afk_reason(m.from_user.id, x, time)
         await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
         r = await find_reason_afk(m.from_user.id)
         await m.reply((await get_string(m.chat.id, "AFK_IS_NOW_REASON")).format(m.from_user.first_name, r))
         await m.stop_propagation()
     else:
         try:
-            await add_afk(m.from_user.id, datetime.now().timestamp())
+            await add_afk(m.from_user.id, time)
             await AFK_COUNT.delete_one({"mention_": m.from_user.mention()})
             await AFK_COUNT.insert_one({"mention_": m.from_user.mention()})
             await m.reply((await get_string(m.chat.id, "AFK_IS_NOW")).format(m.from_user.first_name))
