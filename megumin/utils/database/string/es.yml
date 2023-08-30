@@ -97,8 +97,8 @@ ERROR_PRINT_DNS: "<b>No se puede acceder a este sitio</b>\n\n\n<i>Se rechazó la
 #AFK
 AFK_IS_NOW_REASON: "¡{} ahora está AFK!\nDijo que es: {}"
 AFK_IS_NOW: "¡{} ahora está AFK!"
-IS_AFK: "¡{} está AFK!\n<b>Visto por última vez hace</b> {}"
-IS_AFK_REASON: "¡{} está AFK!\nDijo que es: {}\n<b>Visto por última vez hace</b> {}"
+IS_AFK: "¡{} está AFK!\n<b>Visto por última vez hace</b> <i>{}</i>"
+IS_AFK_REASON: "¡{} está AFK!\nDijo que es: {}\n<b>Visto por última vez hace</b> <i>{}</i>"
 AFK_LOOGER: "¡{} ya no está AFK!"
   
   
