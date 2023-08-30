@@ -28,7 +28,7 @@ hpack==4.0.0
 httpcore==0.15.0
 httpx[http2,socks]==0.24.1
 hachoir
-humanize==4.0.0
+humanize==4.6.0
 hyperframe==6.0.1
 idna==3.2
 lxml==4.9.3
