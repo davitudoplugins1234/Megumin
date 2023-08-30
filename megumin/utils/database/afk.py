@@ -1,12 +1,16 @@
+import humanize
+
+from datetime import datetime
+
 from megumin.utils import get_collection, tld
 
 AFK = get_collection("_AFK")
 
-async def add_afk_reason(user_id: int, reason: str):
-    await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "on", "_reason": reason}}, upsert=True)
+async def add_afk_reason(user_id: int, reason: str, time: str):
+    await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "on", "_reason": reason, "time": time}}, upsert=True)
 
-async def add_afk(user_id: int):
-    await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "on"}}, upsert=True)
+async def add_afk(user_id: int, time: str):
+    await AFK.update_one({"user_id": user_id}, {"$set": {"_afk": "on", "time": time}}, upsert=True)
 
 async def del_afk(user_id: int):
     await AFK.delete_many({"user_id": user_id})
@@ -35,12 +39,16 @@ async def check_afk(m, user_id, user_fn, user):
         except (UserNotParticipant, PeerIdInvalid):
             return
 
+        #time afk:
+        if (lang := await tld(m.chat.id, "language")) != "en":
+            humanize.i18n.activate(lang)
+        time = humanize.naturaldelta(datetime.now() - datetime.fromtimestamp(afk_found["time"]))
         
         if "_reason" in afk_found:
             r = afk_found["_reason"]
-            afkmsg = (await tld(m.chat.id, "IS_AFK_REASON")).format(user_fn, r)
+            afkmsg = (await tld(m.chat.id, "IS_AFK_REASON")).format(user_fn, r, time)
         else:
-            afkmsg = (await tld(m.chat.id, "IS_AFK")).format(user_fn)
+            afkmsg = (await tld(m.chat.id, "IS_AFK")).format(user_fn, time)
         try:
             return await m.reply_text(afkmsg)
         except ChatWriteForbidden:
