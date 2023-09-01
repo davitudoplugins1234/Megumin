@@ -34,9 +34,6 @@ DEVICE_LIST = "https://raw.githubusercontent.com/androidtrackers/certified-andro
 @megux.on_message(filters.command(["deviceinfo", "d"], Config.TRIGGER))
 @disableable_dec("deviceinfo")
 async def deviceinfo(c: megux, m: Message):
-    if await is_disabled(m.chat.id, "deviceinfo"):
-        return
-
     if not await find_user(m.from_user.id):
         await add_user(m.from_user.id)
 
