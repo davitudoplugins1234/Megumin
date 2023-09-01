@@ -19,4 +19,5 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 logging.getLogger("pyrogram.parser.html").setLevel(logging.ERROR)
 logging.getLogger("pyrogram.session.session").setLevel(logging.ERROR)
 logging.getLogger("httpx").setLevel(logging.INFO)
+logging.getLogger("yt_dlp").setLevel(logging.INFO)
 
