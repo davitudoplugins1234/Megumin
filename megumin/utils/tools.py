@@ -172,7 +172,7 @@ async def cssworker_url(target_url: str, pc_id: str):
     url = "https://htmlcsstoimage.com/demo_run"
     my_headers = {
         "User-Agent": f"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0 [PC-ID({pc_id})]", 
-        "Accept-Language': 'pt-BR",
+        "Accept-Language': "pt-BR",
     }
 
     data = {
