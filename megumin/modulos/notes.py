@@ -13,7 +13,7 @@ from pyrogram import filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message, User
 
 from megumin import megux, Config
-from megumin.utils import get_collection, check_rights, tld
+from megumin.utils import get_collection, check_rights, tld, disableable_dec
 from megumin.utils.decorators import input_str
 
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
@@ -66,6 +66,7 @@ def button_parser(markdown_note):
 
 
 @megux.on_message(filters.command(["save", "savenote", "note"], Config.TRIGGER))
+@disableable_dec("save")
 async def save_notes(c: megux, m: Message):
     chat_id = m.chat.id
     user_id = m.from_user.id
@@ -158,6 +159,7 @@ async def save_notes(c: megux, m: Message):
 
 
 @megux.on_message(filters.command("notes", Config.TRIGGER) & filters.group)
+@disableable_dec("notes")
 async def get_all_chat_note(c: megux, m: Message):
     db = get_collection(f"CHAT_NOTES {m.chat.id}")
     chat_id = m.chat.id
@@ -174,6 +176,7 @@ async def get_all_chat_note(c: megux, m: Message):
         
         
 @megux.on_message(filters.command(["rmnote", "delnote"]))
+@disableable_dec("delnote")
 async def rmnote(c: megux, m: Message):
     args = m.text.html.split(maxsplit=1)
     trigger = args[1].lower()
@@ -192,6 +195,7 @@ async def rmnote(c: megux, m: Message):
 
         
 @megux.on_message(filters.command(["resetnotes", "clearnotes"]))
+@disableable_dec("resetnotes")
 async def clear_notes(c: megux, m: Message):
     chat_id = m.chat.id
     db = get_collection(f"CHAT_NOTES {chat_id}")
