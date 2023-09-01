@@ -17,14 +17,14 @@ Can be found as [WhiterKang](https://t.me/whiterkangbot) on Telegram.
 - `REMOVE_BG_API_KEY` - removebg
 - `GP_LOGS` - Seu grupo de registro
 - `OPENAI_API` - Sua API do ChatGPT
-- `PIXABAY_API_KEY` - Sua API do PIXABAY
+- `PEXELS_API_KEY` - Sua API do PEXELS
 
 
 
 # Licence (MIT)
 ```
-Whiterkang (A telegram bot project)
-Copyright (C) 2022 Davi, fnixdev, yusukesy, Luska1331.
+WhiterKang (A telegram bot project)
+Copyright (C) 2023 Davi
 
 
 
