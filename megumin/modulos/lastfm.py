@@ -24,8 +24,6 @@ REG = get_collection("USERS")
 @megux.on_message(filters.command(["setuser", "reg", "set"], prefixes=["/", "!"]))
 @disableable_dec("set")
 async def last_save_user(_, message: Message):
-    if await is_disabled(message.chat.id, "set"):
-        return
     user_id = message.from_user.id
     fname = message.from_user.first_name
     uname = message.from_user.username
@@ -59,8 +57,6 @@ async def last_save_user(_, message: Message):
 @megux.on_message(filters.command(["deluser", "duser"], prefixes=["/", "!"]))
 @disableable_dec("deluser")
 async def last_save_user(_, message: Message):
-    if await is_disabled(message.chat.id, "deluser"):
-        return
     user_id = message.from_user.id
     found = await REG.find_one({"id_": user_id})
     if found:
@@ -75,8 +71,6 @@ async def last_save_user(_, message: Message):
 @megux.on_message(filters.command(["profile", "user"]))
 @disableable_dec("profile")
 async def now_play(c: megux, message: Message):
-    if await is_disabled(message.chat.id, "profile"):
-        return
     user_ = message.from_user
     lastdb = await REG.find_one({"id_": user_.id})
     if not lastdb:
@@ -154,8 +148,6 @@ async def now_play(c: megux, message: Message):
 @megux.on_message(filters.command(["lt", "lastfm", "lmu"], Config.TRIGGER))
 @disableable_dec("lt")
 async def last_user(c: megux, message: Message):
-    if await is_disabled(message.chat.id, "lt"):
-        return
     query = input_str(message)
     user_ = message.from_user
     lastdb = await REG.find_one({"id_": user_.id})
