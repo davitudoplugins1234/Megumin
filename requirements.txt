@@ -21,6 +21,7 @@ Faker
 git+https://github.com/kkroening/ffmpeg-python.git
 geopy
 gallery-dl>=1.21.2
+GitPython
 h11==0.12.0
 h2==4.0.0
 heroku3
