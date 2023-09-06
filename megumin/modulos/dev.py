@@ -13,7 +13,11 @@ from pyrogram import Client, filters
 from pyrogram.enums import ParseMode  
 from pyrogram.errors import UserIsBlocked
 from pyrogram.types import Message
-from datetime import datetime 
+
+from datetime import datetime
+from git import Repo
+from git.exc import GitCommandError, InvalidGitRepositoryError
+
 
 from megumin import megux, Config
 from megumin.utils import is_dev, get_collection, http
@@ -24,6 +28,9 @@ from megumin.utils.decorators import input_str
 USERS = get_collection("USERS_START")
 GROUPS = get_collection("GROUPS")
 
+
+REPO_ = "https://github.com/davitudoplugins1234/WhiterKang"
+BRANCH_ = "master"
 
 @megux.on_message(filters.command(["broadcast", "bc"], Config.TRIGGER))
 async def broadcasting_(_, message: Message):
@@ -91,19 +98,39 @@ async def shutdown(c: megux, m: Message):
 
 
 @megux.on_message(filters.command(["up", "update"], prefixes=["/", "!"]))
-async def restart_(_, message: Message):
-    user_id = message.from_user.id
-    if not is_dev(user_id):
+async def updating_(_, message: Message):
+    if not is_dev(message.from_user.id):
         return
-    process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
-    output = process.communicate()[0]
-    kek = await message.reply(f"`{output}`")
-    await asyncio.sleep(3)
-    await kek.edit("`Reiniciando...`")
-    await asyncio.sleep(2)
-    await kek.edit("**WhiterKang foi Reiniciado com Sucesso!**")
-    os.execv(sys.executable, [sys.executable, "-m", "megumin"])
-
+    msg_ = await message.reply("<i>Updating Please Wait!</i>")
+    try:
+        repo = Repo()
+    except GitCommandError:
+        return await msg_.edit("<i>Invalid Git Command</i>")
+    except InvalidGitRepositoryError:
+        repo = Repo.init()
+        if "upstream" in repo.remotes:
+            origin = repo.remote("upstream")
+        else:
+            origin = repo.create_remote("upstream", REPO_)
+        origin.fetch()
+        repo.create_head(BRANCH_, origin.refs.master)
+        repo.heads.master.set_tracking_branch(origin.refs.master)
+        repo.heads.master.checkout(True)
+    if repo.active_branch.name != BRANCH_:
+        return await msg_.edit("<i>error in update. please try again...</i>")
+    try:
+        repo.create_remote("upstream", REPO_)
+    except BaseException:
+        pass
+    ups_rem = repo.remote("upstream")
+    ups_rem.fetch(BRANCH_)
+    try:
+        ups_rem.pull(BRANCH_)
+    except GitCommandError:
+        repo.git.reset("--hard", "FETCH_HEAD")
+    await msg_.edit("<i>Updated Sucessfully! Give Me A min To Restart!</i>")
+    args = [sys.executable, "-m", "megumin"]
+    os.execle(sys.executable, *args, os.environ)
 
 @Client.on_message(filters.command(["ev", "eval"], prefixes=["/", "!"]))
 async def eval_(client: megux, message: Message):
