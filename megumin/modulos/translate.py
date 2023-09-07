@@ -10,10 +10,12 @@ from pyrogram.types import (
 )
 
 from megumin import megux
-from megumin.utils import get_collection, get_string, disableable_dec, is_disabled  
+from megumin.utils import get_collection, get_string, disableable_dec, is_disabled, inline_handler  
 
 
 tr = Translator()
+
+images_thumb_url = "https://telegra.ph/file/83402d7a4ca7b186a4281.jpg"
 
 # See https://cloud.google.com/translate/docs/languages
 # fmt: off
@@ -90,7 +92,7 @@ async def translate(c: megux, m: Message):
             from_lang=trres.lang, to_lang=langs["targetlang"], translation=res))
 
 
-@megux.on_inline_query(filters.regex(r"^tr"))
+@megux.on_inline_query(filters.regex(r"^tr|translate"))
 async def tr_inline(c: megux, q: InlineQuery):
     try:
         to_tr = q.query.split(None, 2)[2]
@@ -114,3 +116,6 @@ async def tr_inline(c: megux, q: InlineQuery):
         )
     except IndexError:
         return
+
+
+inline_handler.add_cmd("tr <lang> <text>", "A simple inline text translator", images_thumb_url, aliases=["translate"])
