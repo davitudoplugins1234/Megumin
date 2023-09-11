@@ -11,8 +11,6 @@ from megumin.utils import find_user, add_user, disableable_dec
 
 
 shazam = Shazam()
-recognizer = sr.Recognizer()
-
 
 @megux.on_message(filters.command(["whichsong", "detectsong"], Config.TRIGGER))
 async def which_song(c: megux, message: Message):
