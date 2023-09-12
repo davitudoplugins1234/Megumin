@@ -109,9 +109,9 @@ async def updating_(_, message: Message):
     except InvalidGitRepositoryError:
         repo = Repo.init()
         if "upstream" in repo.remotes:
-            origin = repo.remote("origin")
+            origin = repo.remote("upstream")
         else:
-            origin = repo.create_remote("origin", REPO_)
+            origin = repo.create_remote("upstream", REPO_)
         origin.fetch()
         repo.create_head(BRANCH_, origin.refs.master)
         repo.heads.master.set_tracking_branch(origin.refs.master)
