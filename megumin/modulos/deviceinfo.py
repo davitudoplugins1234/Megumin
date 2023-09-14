@@ -6,7 +6,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
-from megumin.utils import disableable_dec, is_disabled, search_device, get_device, add_user, find_user
+from megumin.utils import disableable_dec, is_disabled, search_device, get_device, add_user, find_user, tld
 from megumin.utils.decorators import input_str
 
 tr = Translator()
