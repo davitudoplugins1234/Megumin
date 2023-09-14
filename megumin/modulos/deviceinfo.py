@@ -72,9 +72,11 @@ async def deviceinfo(c: megux, m: Message):
                         
                         for spec in specs:
                             name = spec['name']
-                            name = await tr.translate(name, targetlang=await tld(m.chat.id, "language")).text
+                            name = await tr.translate(name, targetlang=await tld(m.chat.id, "language"))
+                            name = name.text
                             value = spec['value']
-                            value = await tr.translate(value, targetlang=await tld(m.chat.id, "language")).text
+                            value = await tr.translate(value, targetlang=await tld(m.chat.id, "language"))
+                            value = value.text
                             section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
