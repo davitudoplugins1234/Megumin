@@ -65,12 +65,15 @@ async def deviceinfo(c: megux, m: Message):
                     try:
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
+                        category = await tr.translate(category, targetlang=await tld(m.chat.id, "language")).text
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
                         section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
                         for spec in specs:
                             name = spec['name']
+                            name = await tr.translate(name, targetlang=await tld(m.chat.id, "language")).text
                             value = spec['value']
+                            value = await tr.translate(value, targetlang=await tld(m.chat.id, "language")).text
                             section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
                         
                         DEVICE_TEXT += section_text
