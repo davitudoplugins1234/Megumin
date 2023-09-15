@@ -70,35 +70,33 @@ MAP_CATEGORY_EN = {
 }
 
 MAP_CATEGORY_ES = {
+"Display": "Pantalla",
   
-  "Display": "Pantalla",
+"Platform": "Plataforma",
   
-  "Platform": "Plataforma",
+"Memory": "Memoria",
   
-  "Memory": "Memoria",
+"Main Camera": "Cámara principal",
   
-  "Main Camera": "Cámara principal",
+"Selfie camera": "Cámara frontal",
   
-  "Selfie camera": "Cámara frontal",
+"Sound": "Sonido",
   
-  "Sound": "Sonido",
+"Network": "Red",
   
-  "Network": "Red",
+"Battery": "Batería",
   
-  "Battery": "Batería",
+"Body": "Cuerpo",
   
-  "Body": "Cuerpo",
+"Launch": "Lanzamiento",
   
-  "Launch": "Lanzamiento",
+"Comms": "Comunicaciones",
   
-  "Comms": "Comunicaciones",
+"Features": "Características",
   
-  "Features": "Características",
+"Misc": "Varios",
   
-  "Misc": "Varios",
-  
-  "Tests": "Pruebas"
-  
+"Tests": "Pruebas"  
 }
 
 # funções futuras
