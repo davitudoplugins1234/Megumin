@@ -69,6 +69,38 @@ MAP_CATEGORY_EN = {
 "Tests": "Tests"
 }
 
+MAP_CATEGORY_ES = {
+  
+  "Display": "Pantalla",
+  
+  "Platform": "Plataforma",
+  
+  "Memory": "Memoria",
+  
+  "Main Camera": "Cámara principal",
+  
+  "Selfie camera": "Cámara frontal",
+  
+  "Sound": "Sonido",
+  
+  "Network": "Red",
+  
+  "Battery": "Batería",
+  
+  "Body": "Cuerpo",
+  
+  "Launch": "Lanzamiento",
+  
+  "Comms": "Comunicaciones",
+  
+  "Features": "Características",
+  
+  "Misc": "Varios",
+  
+  "Tests": "Pruebas"
+  
+}
+
 # funções futuras
 
 
