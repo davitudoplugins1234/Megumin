@@ -102,7 +102,89 @@ MAP_INFO_PT = {
     "Price": "Preço"
 }
 
+MAP_INFO_EN = {
+    "Technology": "Technology",
+    "2G bands": "2G bands",
+    "3G bands": "3G bands",
+    "4G bands": "4G bands",
+    "Speed": "Speed",
+    "Announced": "Announced",
+    "Status": "Status",
+    "Dimensions": "Dimensions",
+    "Weight": "Weight",
+    "SIM": "SIM Card",
+    "Size": "Size",
+    "Resolution": "Resolution",
+    "OS": "Operating System",
+    "Chipset": "Chipset",
+    "CPU": "CPU",
+    "GPU": "GPU",
+    "Card slot": "Card Slot",
+    "Internal": "Internal",
+    "Single": "Single",
+    "Dual": "Dual",
+    "Triple": "Triple",
+    "Quadruple": "Quadruple",
+    "Features": "Features",
+    "Video": "Video",
+    "Loudspeaker": "Loudspeaker",
+    "3.5mm jack": "3.5mm Jack",
+    "WLAN": "Wi-Fi",
+    "Bluetooth": "Bluetooth",
+    "Positioning": "Positioning",
+    "NFC": "NFC",
+    "Radio": "Radio",
+    "USB": "USB",
+    "Sensors": "Sensors",
+    "Type": "Type",
+    "Colors": "Colors",
+    "Models": "Models",
+    "SAR": "SAR",
+    "SAR EU": "SAR EU",
+    "Price": "Price"
+}
 
+MAP_INFO_ES = {
+    "Technology": "Tecnología",
+    "2G bands": "Bandas 2G",
+    "3G bands": "Bandas 3G",
+    "4G bands": "Bandas 4G",
+    "Speed": "Velocidad",
+    "Announced": "Anunciado",
+    "Status": "Estado",
+    "Dimensions": "Dimensiones",
+    "Weight": "Peso",
+    "SIM": "Tarjeta SIM",
+    "Size": "Tamaño",
+    "Resolution": "Resolución",
+    "OS": "Sistema Operativo",
+    "Chipset": "Procesador",
+    "CPU": "CPU",
+    "GPU": "GPU",
+    "Card slot": "Ranura para tarjeta",
+    "Internal": "Almacenamiento interno",
+    "Single": "Individual",
+    "Dual": "Doble",
+    "Triple": "Triple",
+    "Quadruple": "Cuádruple",
+    "Features": "Características",
+    "Video": "Video",
+    "Loudspeaker": "Altavoz",
+    "3.5mm jack": "Conector de 3.5mm",
+    "WLAN": "Wi-Fi",
+    "Bluetooth": "Bluetooth",
+    "Positioning": "Posicionamiento",
+    "NFC": "NFC",
+    "Radio": "Radio",
+    "USB": "USB",
+    "Sensors": "Sensores",
+    "Type": "Tipo",
+    "Colors": "Colores",
+    "Models": "Modelos",
+    "SAR": "Tasa de absorción",
+    "SAR EU": "Tasa de absorción en la Unión Europea",
+    "Price": "Precio"
+}
 
 # funções futuras
 
@@ -195,7 +277,7 @@ def force_reply(selective=True):
 def array_chunk(input, size):
     return [input[i : i + size] for i in range(0, len(input), size)]
 
-def gsmarena_tr(category: str, lang: str):
+def gsmarena_tr_category(category: str, lang: str):
     if lang == "pt":
         tr_ = MAP_CATEGORY_PT.get(category, f"{category}")
         return tr_
@@ -206,3 +288,13 @@ def gsmarena_tr(category: str, lang: str):
         tr_ = MAP_CATEGORY_ES.get(category, f"{category}")
         return tr_
         
+def gsmarena_tr_info(info: str, lang: str):
+    if lang == "pt":
+        tr_ = MAP_INFO_PT.get(category, f"{category}")
+        return tr_
+    if lang == "en":
+        tr_ = MAP_INFO_EN.get(category, f"{category}")
+        return tr_
+    if lang == "es":
+        tr_ = MAP_INFO_ES.get(category, f"{category}")
+        return tr_
