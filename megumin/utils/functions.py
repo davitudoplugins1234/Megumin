@@ -150,3 +150,15 @@ def force_reply(selective=True):
 
 def array_chunk(input, size):
     return [input[i : i + size] for i in range(0, len(input), size)]
+
+def gsmarena_tr(category: str, lang: str):
+    if lang == "pt":
+        tr_ = MAP_CATEGORY_PT.get(category, f"{category}")
+        return tr_
+    if lang == "en":
+        tr_ = MAP_CATEGORY_EN.get(category, f"{category}")
+        return tr_
+    if lang == "es":
+        tr_ = MAP_CATEGORY_ES.get(category, f"{category}")
+        return tr_
+        
