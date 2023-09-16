@@ -60,7 +60,7 @@ MAP_CATEGORY_ES = {
     "Tests": "Pruebas"
 }
 
-MAP_ = {
+MAP_INFO_PT = {
     "Technology": "Tecnologia",
     "2G bands": "Bandas 2G",
     "3G bands": "Bandas 3G",
