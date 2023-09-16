@@ -6,7 +6,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from megumin import megux, Config
-from megumin.utils import disableable_dec, is_disabled, search_device, get_device, add_user, find_user, tld
+from megumin.utils import disableable_dec, is_disabled, search_device, get_device, add_user, find_user, tld, gsmarena_tr
 from megumin.utils.decorators import input_str
 
 tr = Translator()
@@ -65,6 +65,7 @@ async def deviceinfo(c: megux, m: Message):
                     try:
                         category = get_device_api['detailSpec'][spec_index]['category']
                         translated_category = CATEGORY_EMOJIS.get(category, '')
+                        category = gsmarena_tr(category, await tld(m.chat.id, "language"))
                         specs = get_device_api['detailSpec'][spec_index]['specifications']
                         section_text = f"\n\n<b>{translated_category} <u>{category}</b></u>:\n"
                         
