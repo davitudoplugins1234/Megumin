@@ -10,93 +10,54 @@ from pyrogram.types import (
 )
 
 MAP_CATEGORY_PT = {
-"Display": "Tela",
-
-"Platform": "Plataforma",
-
-"Memory": "Memória",
-
-"Main Camera": "Câmera principal",
-
-"Selfie camera": "Câmera frontal",
-
-"Sound": "Som",
-
-"Network": "Rede",
-
-"Battery": "Bateria",
-
-"Body": "Corpo",
-
-"Launch": "Lançado",
-
-"Comms": "Comunicações",
-
-"Features": "Características",
-
-"Misc": "Diversos",
-
-"Tests": "Testes"
+    "Display": "Tela",
+    "Platform": "Plataforma",
+    "Memory": "Memória",
+    "Main Camera": "Câmera principal",
+    "Selfie camera": "Câmera frontal",
+    "Sound": "Som",
+    "Network": "Rede",
+    "Battery": "Bateria",
+    "Body": "Corpo",
+    "Launch": "Lançado",
+    "Comms": "Comunicações",
+    "Features": "Características",
+    "Misc": "Diversos",
+    "Tests": "Testes"
 }
 
 MAP_CATEGORY_EN = {
-"Display": "Display",
-
-"Platform": "Platform",
-
-"Memory": "Memory",
-
-"Main Camera": "Main camera",
-
-"Selfie camera": "Frontal camera",
-
-"Sound": "Sound",
-
-"Network": "Network",
-
-"Battery": "Battery",
-
-"Body": "Body",
-
-"Launch": "Launch",
-
-"Comms": "Comms",
-
-"Features": "Features",
-
-"Misc": "Misc",
-
-"Tests": "Tests"
+    "Display": "Display",
+    "Platform": "Platform",
+    "Memory": "Memory",
+    "Main Camera": "Main camera",
+    "Selfie camera": "Frontal camera",
+    "Sound": "Sound",
+    "Network": "Network",
+    "Battery": "Battery",
+    "Body": "Body",
+    "Launch": "Launch",
+    "Comms": "Comms",
+    "Features": "Features",
+    "Misc": "Misc",
+    "Tests": "Tests"
 }
 
 MAP_CATEGORY_ES = {
-"Display": "Pantalla",
-  
-"Platform": "Plataforma",
-  
-"Memory": "Memoria",
-  
-"Main Camera": "Cámara principal",
-  
-"Selfie camera": "Cámara frontal",
-  
-"Sound": "Sonido",
-  
-"Network": "Red",
-  
-"Battery": "Batería",
-  
-"Body": "Cuerpo",
-  
-"Launch": "Lanzamiento",
-  
-"Comms": "Comunicaciones",
-  
-"Features": "Características",
-  
-"Misc": "Varios",
-  
-"Tests": "Pruebas"  
+    "Display": "Pantalla",
+    "Platform": "Plataforma",
+    "Memory": "Memoria",
+    "Main Camera": "Cámara principal",
+    "Selfie camera": "Cámara frontal",
+    "Sound": "Sonido",
+    "Network": "Red",
+    "Battery": "Batería",
+    "Body": "Cuerpo",
+    "Launch": "Lanzamiento",
+    "Comms": "Comunicaciones",
+    "Features": "Características",
+    "Misc": "Varios",
+    "Tests": "Pruebas"  
 }
 
 # funções futuras
