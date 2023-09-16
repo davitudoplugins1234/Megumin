@@ -60,6 +60,50 @@ MAP_CATEGORY_ES = {
     "Tests": "Pruebas"
 }
 
+MAP_ = {
+    "Technology": "Tecnologia",
+    "2G bands": "Bandas 2G",
+    "3G bands": "Bandas 3G",
+    "4G bands": "Bandas 4G",
+    "Speed": "Velocidade",
+    "Announced": "Anunciado",
+    "Status": "Status",
+    "Dimensions": "Dimensões",
+    "Weight": "Peso",
+    "SIM": "Cartão SIM",
+    "Size": "Tamanho",
+    "Resolution": "Resolução",
+    "OS": "Sistema Operacional",
+    "Chipset": "Processador",
+    "CPU": "CPU",
+    "GPU": "GPU",
+    "Card slot": "Slot de Cartão",
+    "Internal": "Interna",
+    "Single": "Principal",
+    "Dual": "Dupla",
+    "Triple": "Tripa",
+    "Quadruple": "Quadrupla",
+    "Features": "Recursos",
+    "Video": "Vídeo",
+    "Loudspeaker": "Alto-falante",
+    "3.5mm jack": "Conector 3.5mm",
+    "WLAN": "Wi-Fi",
+    "Bluetooth": "Bluetooth",
+    "Positioning": "Posicionamento",
+    "NFC": "NFC",
+    "Radio": "Rádio",
+    "USB": "USB",
+    "Sensors": "Sensores",
+    "Type": "Tipo",
+    "Colors": "Cores",
+    "Models": "Modelos",
+    "SAR": "Taxa de Absorção",
+    "SAR EU": "Taxa de Absorção na União Europeia",
+    "Price": "Preço"
+}
+
+
+
 # funções futuras
 
 
