@@ -57,7 +57,7 @@ MAP_CATEGORY_ES = {
     "Comms": "Comunicaciones",
     "Features": "Características",
     "Misc": "Varios",
-    "Tests": "Pruebas"  
+    "Tests": "Pruebas"
 }
 
 # funções futuras
