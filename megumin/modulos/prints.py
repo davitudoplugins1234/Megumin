@@ -38,6 +38,7 @@ async def prints(c: megux, message: Message):
 
     if res_json:
         # {"url":"image_url","response_time":"147ms"}
+        print(res_json)
         try:
            image_url = res_json["url"]
         except Exception as err:
