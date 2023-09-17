@@ -73,7 +73,7 @@ async def deviceinfo(c: megux, m: Message):
                             base_name = spec['name']
                             name = gsmarena_tr_info(base_name, await tld(m.chat.id, "language"))
                             value = spec['value']
-                            section_text += f"- <b>{name}:</b> <i>{value}</i>\n"
+                            section_text += f"- <b>{name}:</b> <i>{value}</i>\n\n"
                         
                         DEVICE_TEXT += section_text
                     except (IndexError, KeyError):
