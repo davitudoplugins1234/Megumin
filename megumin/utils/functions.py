@@ -85,8 +85,8 @@ MAP_INFO_PT = {
     "Quadruple": "Quadrupla",
     "Features": "Recursos",
     "Video": "Vídeo",
-    "Loudspeaker": "Alto-falante",
-    "3.5mm jack": "Conector 3.5mm",
+    "Loudspeaker ": "Alto-falante",
+    "3.5mm jack ": "Conector 3.5mm",
     "WLAN": "Wi-Fi",
     "Bluetooth": "Bluetooth",
     "Positioning": "Posicionamento",
@@ -102,7 +102,9 @@ MAP_INFO_PT = {
     "Price": "Preço",
     "Charging": "Potência de Carregamento",
     "Performance": "Desempenho",
-    "Battery life": "Vida da Bateria"
+    "Battery life": "Vida da Bateria",
+    "Audio quality": "Qualidade Sonora",
+    "Display": "Tela"
 }
 
 MAP_INFO_EN = {
@@ -147,7 +149,9 @@ MAP_INFO_EN = {
     "Price": "Price",
     "Charging": "Charging Power",
     "Performance": "Performance",
-    "Battery life": "Battery life"
+    "Battery life": "Battery Life",
+    "Audio quality": "Audio Quality",
+    "Display": "Display"
 }
 
 MAP_INFO_ES = {
@@ -192,7 +196,9 @@ MAP_INFO_ES = {
     "Price": "Precio",
     "Charging": "Poder de Carga",
     "Performance": "Actuación",
-    "Battery life": "Vida de la Batería"
+    "Battery life": "Vida de la Batería",
+    "Audio quality": "Calidad de Audio",
+    "Display": "Pantalla"
 }
 
 # funções futuras
