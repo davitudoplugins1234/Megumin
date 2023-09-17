@@ -100,7 +100,9 @@ MAP_INFO_PT = {
     "SAR": "Taxa de Absorção",
     "SAR EU": "Taxa de Absorção na União Europeia",
     "Price": "Preço",
-    "Charging": "Potência de Carregamento"
+    "Charging": "Potência de Carregamento",
+    "Performance": "Desempenho",
+    "Battery life": "Vida da Bateria"
 }
 
 MAP_INFO_EN = {
@@ -143,7 +145,9 @@ MAP_INFO_EN = {
     "SAR": "SAR",
     "SAR EU": "SAR EU",
     "Price": "Price",
-    "Charging": "Charging Power"
+    "Charging": "Charging Power",
+    "Performance": "Performance",
+    "Battery life": "Battery life"
 }
 
 MAP_INFO_ES = {
@@ -186,7 +190,9 @@ MAP_INFO_ES = {
     "SAR": "Tasa de absorción",
     "SAR EU": "Tasa de absorción en la Unión Europea",
     "Price": "Precio",
-    "Charging": "Poder de Carga"
+    "Charging": "Poder de Carga",
+    "Performance": "Actuación",
+    "Battery life": "Vida de la Batería"
 }
 
 # funções futuras
