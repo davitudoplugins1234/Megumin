@@ -40,8 +40,9 @@ async def prints(c: megux, message: Message):
         # {"url":"image_url","response_time":"147ms"}
         try:
            image_url = res_json["url"]
-        except Exception:
-            await sent.edit("⚠️ <b>An error occurred on my system</b>:\n <b><u>Screenshot </u> was not taken, due to</b>: <i>{}</i>")
+        except Exception as err:
+            await sent.edit("⚠️ <b>An error occurred on my system</b>:\n<b><u>Screenshot</u> was not taken, due to</b>: <i>{}</i>".format(err))
+            return
         if image_url:
             try:
                 await message.reply_photo(image_url)
