@@ -62,7 +62,7 @@ async def prints(c: megux, message: Message):
         await message.reply("Failed because API is not responding, try again later.")
 
 
-@megux.on_message(filters.command(["google", "search"], prefixes=["/","!"]))
+@megux.on_message(filters.command(["browser", "search"], prefixes=["/","!"]))
 async def prints_google(c: megux, message: Message):
     msg = message.text
     user_id = f"{message.from_user.id}"
@@ -95,7 +95,11 @@ async def prints_google(c: megux, message: Message):
 
     if res_json:
         # {"url":"image_url","response_time":"147ms"}
-        image_url = res_json["url"]
+        try:
+            image_url = res_json["url"]
+        except Exception as err:
+            await sent.edit("⚠️ <b>An error occurred on my system</b>:\n<b><u>Screenshot</u> was not taken for search in browser, due to</b>: <i>{}</i>".format(err))
+            return
         if image_url:
             try:
                 await message.reply_photo(image_url)
