@@ -290,11 +290,11 @@ def gsmarena_tr_category(category: str, lang: str):
         
 def gsmarena_tr_info(info: str, lang: str):
     if lang == "pt":
-        tr_ = MAP_INFO_PT.get(category, f"{category}")
+        tr_ = MAP_INFO_PT.get(info, f"{category}")
         return tr_
     if lang == "en":
-        tr_ = MAP_INFO_EN.get(category, f"{category}")
+        tr_ = MAP_INFO_EN.get(info, f"{category}")
         return tr_
     if lang == "es":
-        tr_ = MAP_INFO_ES.get(category, f"{category}")
+        tr_ = MAP_INFO_ES.get(info, f"{category}")
         return tr_
