@@ -8,8 +8,6 @@ from megumin.utils import get_collection, get_string, cssworker_url, http, disab
 @megux.on_message(filters.command("print", prefixes=["/","!"]))
 @disableable_dec("print")
 async def prints(c: megux, message: Message):
-    if await is_disabled(message.chat.id, "print"):
-        return
     msg = message.text
     user_id = f"{message.from_user.id}"
     the_url = msg.split(" ", 1)
@@ -40,7 +38,10 @@ async def prints(c: megux, message: Message):
 
     if res_json:
         # {"url":"image_url","response_time":"147ms"}
-        image_url = res_json["url"]
+        try:
+           image_url = res_json["url"]
+        except Exception:
+            await sent.edit("⚠️ <b>An error occurred on my system</b>:\n <b><u>Screenshot </u> was not taken, due to</b>: <i>{}</i>")
         if image_url:
             try:
                 await message.reply_photo(image_url)
