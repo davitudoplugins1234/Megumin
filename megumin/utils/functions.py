@@ -99,7 +99,8 @@ MAP_INFO_PT = {
     "Models": "Modelos",
     "SAR": "Taxa de Absorção",
     "SAR EU": "Taxa de Absorção na União Europeia",
-    "Price": "Preço"
+    "Price": "Preço",
+    "Charging": "Potência de Carregamento"
 }
 
 MAP_INFO_EN = {
@@ -141,7 +142,8 @@ MAP_INFO_EN = {
     "Models": "Models",
     "SAR": "SAR",
     "SAR EU": "SAR EU",
-    "Price": "Price"
+    "Price": "Price",
+    "Charging": "Charging Power"
 }
 
 MAP_INFO_ES = {
@@ -183,7 +185,8 @@ MAP_INFO_ES = {
     "Models": "Modelos",
     "SAR": "Tasa de absorción",
     "SAR EU": "Tasa de absorción en la Unión Europea",
-    "Price": "Precio"
+    "Price": "Precio",
+    "Charging": "Poder de Carga"
 }
 
 # funções futuras
