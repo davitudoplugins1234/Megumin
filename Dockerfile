@@ -4,7 +4,7 @@ WORKDIR /app/
 
 RUN apt-get update && apt-get upgrade -y
 
-RUN apt-get install git curl sudo wget jq python3-pip neofetch ffmpeg -y
+RUN apt-get install git curl sudo wget jq python3-pip ffmpeg -y
 
 RUN pip3 install --upgrade pip
 
