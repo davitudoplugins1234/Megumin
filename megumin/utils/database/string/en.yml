@@ -55,6 +55,7 @@ BNT_18: "Filters"
 COM_1: "Cleaning up..."
 COM_2: "<i>Looking for...</i>"
 NO_CHANGEINFO_PERM: "You do not have sufficient administrative rights to change this group's information!"
+USER_NO_ADMIN: "You are not an administrator!"
 
 
 
