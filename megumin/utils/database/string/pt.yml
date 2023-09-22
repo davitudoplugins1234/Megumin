@@ -55,8 +55,7 @@ BNT_18: "Filtros"
 COM_1: "Limpando..."
 COM_2: "<i>Procurando...</i>"
 NO_CHANGEINFO_PERM: "Você não tem direitos administrativos suficientes para alterar as informações deste grupo!"
-
-
+USER_NO_ADMIN: "Você não é um administrador!"
 
 #stickers 
 
